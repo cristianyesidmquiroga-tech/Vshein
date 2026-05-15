@@ -56,18 +56,34 @@ export function initNavbar() {
     });
   });
 
-  // Active section indicator
+  // Active section indicator (ScrollSpy preciso)
   const sections = document.querySelectorAll('section[id]');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('data-section') === id);
-        });
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollY = window.scrollY;
+    const scrollPosition = scrollY + navbar.offsetHeight + 50; // Offset visual
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        current = section.getAttribute('id');
       }
     });
-  }, { threshold: 0.3, rootMargin: '-100px 0px -40% 0px' });
 
-  sections.forEach(section => observer.observe(section));
+    // Forzar la última sección si llegamos al fondo exacto de la página
+    if ((window.innerHeight + Math.round(scrollY)) >= document.body.offsetHeight - 50) {
+      current = sections[sections.length - 1].getAttribute('id');
+    }
+
+    if (current) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-section') === current) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
 }
