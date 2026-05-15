@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHEIN VÉLEZ — Glamour a tu Alcance | Moda Femenina en Vélez, Santander</title>
+  <meta name="description" content="Shein Vélez - Tu tienda de moda femenina, importaciones, ropa para dama, niños y accesorios en Vélez, Santander. Glamour a tu alcance.">
+  <meta name="keywords" content="moda femenina, ropa mujer, accesorios, Vélez Santander, importaciones, tienda ropa, Shein Vélez">
+  <meta property="og:title" content="SHEIN VÉLEZ — Glamour a tu Alcance">
+  <meta property="og:description" content="Moda femenina, importaciones y accesorios en Vélez, Santander.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👗</text></svg>">
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-logo">Shein Vélez</div>
+    <div class="loading-bar-container">
+      <div class="loading-bar"></div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="navbar-logo">
+        <div class="logo-text">
+          <span class="logo-name">Shein Vélez</span>
+          <span class="logo-slogan">Glamour a tu Alcance</span>
+        </div>
+      </a>
+
+      <div class="navbar-links">
+        <a href="#inicio" class="nav-link active" data-section="inicio">Inicio</a>
+        <a href="#productos" class="nav-link" data-section="productos">Colección</a>
+        <a href="#nosotros" class="nav-link" data-section="nosotros">Nosotros</a>
+        <a href="#contacto" class="nav-link" data-section="contacto">Contacto</a>
+      </div>
+
+      <button class="navbar-toggle" id="nav-toggle" aria-label="Menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="navbar-mobile-overlay" id="mobile-overlay">
+    <div class="navbar-mobile-links">
+      <a href="#inicio" class="nav-link" data-section="inicio">Inicio</a>
+      <a href="#productos" class="nav-link" data-section="productos">Colección</a>
+      <a href="#nosotros" class="nav-link" data-section="nosotros">Nosotros</a>
+      <a href="#contacto" class="nav-link" data-section="contacto">Contacto</a>
+      <div class="navbar-mobile-social">
+        <a href="https://wa.me/573125615080" target="_blank" class="mobile-social-icon" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.913.913l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.586-.828-6.318-2.214l-.44-.362-3.266 1.094 1.094-3.266-.362-.44A9.956 9.956 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/shein_velez/" target="_blank" class="mobile-social-icon" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-video-wrapper">
+      <video class="hero-video" autoplay muted loop playsinline poster="assets/images/hero-fondo.jpg">
+        <source src="assets/videos/hero-video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grain"></div>
+    <canvas class="hero-particles" id="hero-particles"></canvas>
+
+    <div class="hero-float-shape shape-1"></div>
+    <div class="hero-float-shape shape-2"></div>
+    <div class="hero-float-shape shape-3"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Nueva Colección 2026
+      </div>
+      <h1 class="hero-title">
+        <em>Glamour</em><br>a tu Alcance
+      </h1>
+      <p class="hero-subtitle">
+        Moda femenina, importaciones y accesorios<br>
+        en Vélez, Santander.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#productos" class="btn btn-primary" data-section="productos">Ver Colección</a>
+        <a href="#contacto" class="btn btn-outline" data-section="contacto">Contacto</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator">
+      <div class="scroll-mouse"></div>
+      <span class="scroll-text">Scroll</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+      <span class="marquee-item">Importaciones <span class="separator"></span></span>
+      <span class="marquee-item">Moda Dama <span class="separator"></span></span>
+      <span class="marquee-item">Accesorios <span class="separator"></span></span>
+      <span class="marquee-item">Niños <span class="separator"></span></span>
+      <span class="marquee-item">Glamour <span class="separator"></span></span>
+      <span class="marquee-item">Shein Vélez <span class="separator"></span></span>
+      <span class="marquee-item">Tendencias <span class="separator"></span></span>
+      <span class="marquee-item">Estilo <span class="separator"></span></span>
+    </div>
+  </div>
+
+  <!-- PRODUCTOS -->
+  <section class="section products-section" id="productos">
+    <div class="container">
+      <div class="editorial-header">
+        <div class="editorial-header-content">
+          <span class="section-label">Catálogo</span>
+          <h2 class="section-title">Nuestra <em>Colección</em></h2>
+          <p class="section-subtitle">Descubre las últimas tendencias en moda femenina, accesorios e importaciones exclusivas. Calidad y diseño a tu alcance.</p>
+        </div>
+        <div class="editorial-header-media">
+          <video autoplay muted loop playsinline class="editorial-video" poster="assets/images/coleccion-fondo.jpg">
+            <source src="assets/videos/coleccion-video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <!-- Category Mega-Menu -->
+      <div class="category-nav" id="products-filters">
+        <div class="category-nav-columns">
+          <div class="category-column">
+            <h4 class="category-column-title filter-tab active" data-category="todos">Todos los Productos</h4>
+          </div>
+          <div class="category-column">
+            <h4 class="category-column-title filter-tab" data-category="dama">Ropa para Mujer</h4>
+            <ul class="category-items">
+              <li><button class="category-item filter-tab" data-category="dama" data-sub="blusa">Blusas</button></li>
+              <li><button class="category-item filter-tab" data-category="dama" data-sub="camisa">Camisas</button></li>
+              <li><button class="category-item filter-tab" data-category="dama" data-sub="pantalon">Pantalones</button></li>
+              <li><button class="category-item filter-tab" data-category="dama" data-sub="vestido">Vestidos</button></li>
+              <li><button class="category-item filter-tab" data-category="dama" data-sub="conjunto">Conjuntos</button></li>
+            </ul>
+          </div>
+          <div class="category-column">
+            <h4 class="category-column-title filter-tab" data-category="importaciones">Importaciones</h4>
+            <ul class="category-items">
+              <li><button class="category-item filter-tab" data-category="importaciones" data-sub="vestido">Vestidos</button></li>
+              <li><button class="category-item filter-tab" data-category="importaciones" data-sub="blusa">Blusas</button></li>
+              <li><button class="category-item filter-tab" data-category="importaciones" data-sub="conjunto">Conjuntos</button></li>
+              <li><button class="category-item filter-tab" data-category="importaciones" data-sub="camisa">Camisas</button></li>
+            </ul>
+          </div>
+          <div class="category-column">
+            <h4 class="category-column-title filter-tab" data-category="accesorios">Accesorios</h4>
+            <ul class="category-items">
+              <li><button class="category-item filter-tab" data-category="accesorios" data-sub="bolso">Bolsos</button></li>
+              <li><button class="category-item filter-tab" data-category="accesorios" data-sub="collar">Collares</button></li>
+              <li><button class="category-item filter-tab" data-category="accesorios" data-sub="aretes">Aretes</button></li>
+              <li><button class="category-item filter-tab" data-category="accesorios" data-sub="pulsera">Pulseras</button></li>
+            </ul>
+          </div>
+          <div class="category-column">
+            <h4 class="category-column-title filter-tab" data-category="ninos">Niños</h4>
+            <ul class="category-items">
+              <li><button class="category-item filter-tab" data-category="ninos" data-sub="vestido">Vestidos</button></li>
+              <li><button class="category-item filter-tab" data-category="ninos" data-sub="conjunto">Conjuntos</button></li>
+              <li><button class="category-item filter-tab" data-category="ninos" data-sub="camiseta">Camisetas</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="products-grid" id="products-grid"></div>
+    </div>
+  </section>
+
+  <!-- QUIÉNES SOMOS -->
+  <section class="section about-section" id="nosotros">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-image-wrapper reveal-left">
+          <img class="about-image-main" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=750&fit=crop&q=80" alt="Tienda Shein Vélez">
+          <img class="about-image-accent" src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=530&fit=crop&q=80" alt="Moda Shein Vélez">
+        </div>
+        <div class="about-text reveal-right">
+          <span class="about-label">Nuestra Historia</span>
+          <h2 class="about-title">Llevamos el <em>glamour</em> a Vélez, Santander</h2>
+          <p class="about-description">
+            En <strong>Shein Vélez</strong> creemos que la moda es para todas. Traemos las últimas tendencias internacionales directamente a tu ciudad, con prendas de calidad para dama, niños y los accesorios que complementan tu estilo.
+            <br><br>
+            Nuestra tienda en la <strong>Calle 9 # 3-86</strong> es tu destino de moda en Vélez.
+          </p>
+          <div class="about-features">
+            <div class="about-feature">
+              <div class="about-feature-icon">✈️</div>
+              <div class="about-feature-text">
+                <h4>Importaciones</h4>
+                <p>Tendencias internacionales</p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon">👗</div>
+              <div class="about-feature-text">
+                <h4>Moda Dama</h4>
+                <p>Estilos para toda ocasión</p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon">👶</div>
+              <div class="about-feature-text">
+                <h4>Niños</h4>
+                <p>Moda infantil con estilo</p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon">💎</div>
+              <div class="about-feature-text">
+                <h4>Accesorios</h4>
+                <p>El toque perfecto</p>
+              </div>
+            </div>
+          </div>
+          <div class="about-stats">
+            <div class="about-stat">
+              <div class="about-stat-number" data-count="500" data-suffix="+">0+</div>
+              <div class="about-stat-label">Clientas Felices</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-number" data-count="200" data-suffix="+">0+</div>
+              <div class="about-stat-label">Productos</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-number" data-count="4" data-suffix="">0</div>
+              <div class="about-stat-label">Categorías</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section contact-section" id="contacto">
+    <div class="container contact-content">
+      <div class="section-header">
+        <span class="section-label">Síguenos</span>
+        <h2 class="section-title">Contáctanos</h2>
+        <p class="section-subtitle">Escríbenos por WhatsApp o síguenos en Instagram para estar al día con las novedades.</p>
+      </div>
+
+      <div class="social-cards">
+        <!-- WhatsApp -->
+        <a href="https://wa.me/573125615080?text=Hola!%20Quiero%20información%20sobre%20sus%20productos" target="_blank" class="social-card whatsapp">
+          <div class="social-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.913.913l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.586-.828-6.318-2.214l-.44-.362-3.266 1.094 1.094-3.266-.362-.44A9.956 9.956 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+          </div>
+          <h3 class="social-card-title">WhatsApp</h3>
+          <p class="social-card-text">Escríbenos directamente y pregunta por lo que te guste.</p>
+          <span class="social-card-link">
+            312 561 5080
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/shein_velez/" target="_blank" class="social-card instagram">
+          <div class="social-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </div>
+          <h3 class="social-card-title">Instagram</h3>
+          <p class="social-card-text">Síguenos para ver novedades y últimas llegadas.</p>
+          <span class="social-card-link">
+            @shein_velez
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <!-- Miss Lindas -->
+        <a href="https://www.instagram.com/shein_velez/" target="_blank" class="social-card instagram">
+          <div class="social-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </div>
+          <h3 class="social-card-title">Miss Lindas</h3>
+          <p class="social-card-text">Nuestras mejores selecciones de moda.</p>
+          <span class="social-card-link">
+            Miss Lindas & Shein Vélez
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+      </div>
+
+      <!-- Map -->
+      <div class="map-wrapper">
+        <div class="map-header">
+          <div class="map-info">
+            <div class="map-pin-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </div>
+            <div>
+              <h3 class="map-address-title">Nuestra Tienda</h3>
+              <p class="map-address-text">Calle 9 # 3-86, Vélez, Santander</p>
+            </div>
+          </div>
+          <a href="https://maps.google.com/?q=Calle+9+%233-86+Velez+Santander+Colombia" target="_blank" class="btn btn-outline" style="font-size:0.6rem; padding:10px 24px;">
+            Abrir en Maps
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
+        </div>
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5!2d-73.6742!3d6.0127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e69bd0518a22f63%3A0x9f09e8be16be35b5!2sV%C3%A9lez%2C%20Santander!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación Shein Vélez">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <span class="footer-logo">Shein Vélez</span>
+        <span class="footer-text">© 2026 Shein Vélez. Todos los derechos reservados.</span>
+        <div class="footer-links">
+          <a href="https://wa.me/573125615080" target="_blank" class="footer-link">WhatsApp</a>
+          <a href="https://www.instagram.com/shein_velez/" target="_blank" class="footer-link">Instagram</a>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- Product Modal -->
+  <div class="product-modal-overlay" id="product-modal-overlay"></div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

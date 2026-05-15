@@ -1,0 +1,271 @@
+/* ============================================
+   SHEIN VÉLEZ — Hero Section (Zara-style)
+   Full-bleed editorial hero with video
+   ============================================ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: hidden;
+  background: #0A0A0A;
+}
+
+/* Video Background */
+.hero-video-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.75;
+  filter: brightness(1) contrast(1.05) saturate(1.1);
+}
+
+/* Gradient Overlay — very subtle */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.1) 15%,
+    rgba(0, 0, 0, 0.1) 60%,
+    rgba(0, 0, 0, 0.3) 80%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+/* Grain texture */
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Particle Canvas */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Content — Bottom-left aligned like Zara */
+.hero-content {
+  position: relative;
+  z-index: 5;
+  padding: 0 var(--space-4xl) var(--space-5xl);
+  max-width: 700px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: var(--space-xl);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero-badge .dot {
+  width: 4px;
+  height: 4px;
+  background: var(--accent-rose);
+  border-radius: 50%;
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 300;
+  color: var(--text-light);
+  line-height: 0.95;
+  margin-bottom: var(--space-xl);
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+  margin-bottom: var(--space-2xl);
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hero-cta-group .btn-primary {
+  background: var(--bg-white);
+  color: var(--text-primary);
+}
+
+.hero-cta-group .btn-primary:hover {
+  background: var(--bg-off-white);
+}
+
+.hero-cta-group .btn-outline {
+  color: var(--text-light);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.hero-cta-group .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: var(--text-light);
+}
+
+/* Scroll Indicator */
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: var(--space-2xl);
+  right: var(--space-3xl);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  opacity: 0;
+  animation: fade-in-up 1s var(--ease-out) 2.5s forwards;
+}
+
+.scroll-mouse {
+  width: 20px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  position: relative;
+}
+
+.scroll-mouse::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  animation: scroll-wheel 2s var(--ease-in-out) infinite;
+}
+
+@keyframes scroll-wheel {
+  0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+}
+
+.scroll-text {
+  font-size: 0.5rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Decorative floating shapes — very subtle */
+.hero-float-shape {
+  position: absolute;
+  z-index: 3;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.hero-float-shape.shape-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--accent-rose);
+  top: -150px;
+  right: -150px;
+  animation: float-shape 25s ease-in-out infinite;
+}
+
+.hero-float-shape.shape-2 {
+  width: 400px;
+  height: 400px;
+  background: #8B7355;
+  bottom: -100px;
+  left: -100px;
+  animation: float-shape 20s ease-in-out infinite reverse;
+}
+
+.hero-float-shape.shape-3 {
+  width: 300px;
+  height: 300px;
+  background: #C4A882;
+  top: 30%;
+  left: 40%;
+  animation: float-shape 22s ease-in-out infinite 5s;
+}
+
+@keyframes float-shape {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -30px) scale(1.05); }
+  50% { transform: translate(-20px, 20px) scale(0.95); }
+  75% { transform: translate(15px, 15px) scale(1.02); }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100svh;
+    align-items: center;
+  }
+  .hero-content {
+    padding: 0 var(--space-xl);
+    text-align: center;
+  }
+  .hero-cta-group {
+    justify-content: center;
+  }
+  .hero-scroll-indicator {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
