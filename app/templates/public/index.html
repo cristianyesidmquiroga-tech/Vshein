@@ -237,17 +237,55 @@ try {
     .fromTo(".hero-info", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: "power3.out" }, "-=0.7");
 
     // --- SCROLL ANIMATIONS ---
-    gsap.utils.toArray("article").forEach((card, i) => {
-        gsap.from(card, {
-            opacity: 0, scale: 0.95, y: 30, duration: 0.5,
-            delay: (i % 2) * 0.05, ease: "power2.out",
-            scrollTrigger: { trigger: card, start: "top 95%", end: "top 30%", toggleActions: "play reverse play reverse" }
+    const cards = gsap.utils.toArray("#new-catalog-grid article");
+    const isMobile = window.innerWidth < 768;
+
+    if (isMobile) {
+        // Alternating left/right individual card slides for mobile
+        cards.forEach((card, i) => {
+            const xOffset = i % 2 === 0 ? 120 : -120;
+            gsap.from(card, {
+                opacity: 0,
+                x: xOffset,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 92%",
+                    once: true
+                }
+            });
         });
-    });
+    } else {
+        // Row-based staggered entry for desktop (Alternating rows left/right)
+        const rowSize = 3;
+        for (let i = 0; i < cards.length; i += rowSize) {
+            const rowCards = cards.slice(i, i + rowSize);
+            const rowIndex = Math.floor(i / rowSize);
+            const fromLeft = rowIndex % 2 === 1;
+
+            const xOffset = fromLeft ? -250 : 250;
+
+            if (rowCards.length > 0) {
+                gsap.from(rowCards, {
+                    opacity: 0,
+                    x: xOffset,
+                    duration: 1.2,
+                    stagger: 0.15,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: rowCards[0],
+                        start: "top 88%",
+                        once: true
+                    }
+                });
+            }
+        }
+    }
 
     gsap.utils.toArray("[data-anim='reveal']").forEach(el => {
         gsap.from(el, { opacity: 0, y: 60, duration: 1, ease: "power3.out",
-            scrollTrigger: { trigger: el, start: "top 85%", end: "top 30%", toggleActions: "play reverse play reverse" }
+            scrollTrigger: { trigger: el, start: "top 85%", once: true }
         });
     });
 
@@ -255,13 +293,13 @@ try {
         gsap.from(el, {
             opacity: 0, scale: 0.7, y: 60, duration: 0.9,
             delay: i * 0.12, ease: "back.out(1.6)",
-            scrollTrigger: { trigger: el, start: "top 85%", end: "top 30%", toggleActions: "play reverse play reverse" }
+            scrollTrigger: { trigger: el, start: "top 85%", once: true }
         });
     });
 
     gsap.utils.toArray("h2").forEach(el => {
         gsap.from(el, { opacity: 0, y: 60, duration: 1, ease: "power3.out",
-            scrollTrigger: { trigger: el, start: "top 85%", end: "top 30%", toggleActions: "play reverse play reverse" }
+            scrollTrigger: { trigger: el, start: "top 85%", once: true }
         });
     });
 
