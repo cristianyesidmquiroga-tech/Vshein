@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Vshein - Premium Boutique{% endblock %}</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-light': '#FAFAFA',
+                        'brand-dark': '#0a0a0a',
+                        'brand-yellow': '#fff300', // Para alertas y 404
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS para animaciones complejas -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/filters.css') }}">
+    
+    <!-- GSAP & Lenis for Smooth Cinematic Scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-brand-light text-brand-dark antialiased font-sans min-h-screen selection:bg-brand-dark selection:text-brand-light overflow-x-hidden">
+    
+    <!-- Navbar: El ÚNICO lugar donde se permite Glassmorphism -->
+    <nav class="fixed top-0 w-full z-50 bg-brand-light/60 backdrop-blur-lg border-b border-black/5 px-6 md:px-12 py-4 flex justify-between items-center transition-all duration-300">
+        <div class="font-serif text-3xl font-bold tracking-tighter">VSHEIN<span class="text-xs align-top">®</span></div>
+        <div class="hidden md:flex space-x-10 text-xs font-semibold uppercase tracking-widest text-brand-dark/70">
+            <a href="#mujer" class="hover:text-brand-dark transition-colors duration-300">Mujer</a>
+            <a href="#ninos" class="hover:text-brand-dark transition-colors duration-300">Niños</a>
+            <a href="#accesorios" class="hover:text-brand-dark transition-colors duration-300">Accesorios</a>
+        </div>
+        <div class="nav-social flex items-center">
+            <a href="#" class="border border-brand-dark/10 px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider hover:bg-brand-dark hover:text-brand-light transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_20px_rgba(0,0,0,0.05)] track-click" data-target="instagram">Contáctanos</a>
+        </div>
+    </nav>
+
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+</body>
+</html>

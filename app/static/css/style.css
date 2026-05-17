@@ -1,0 +1,115 @@
+/* --- DESIGN TOKENS (SHEIN VÉLEZ BRANDING) --- */
+:root {
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #fdfafb; /* Soft pinkish white */
+    --text-primary: #111111;
+    --text-secondary: #666666;
+    --accent: #000000;
+    --brand-pink: #f5d0d6; /* from business card */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    --spacing-sm: 1rem;
+    --spacing-md: 2.5rem;
+    --spacing-lg: 5rem;
+    --spacing-xl: 10rem;
+    --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- RESET & BASE --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background-color: var(--bg-primary); color: var(--text-primary); font-family: var(--font-body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; }
+a { text-decoration: none; color: inherit; }
+
+/* --- NAVBAR --- */
+.navbar {
+    position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center;
+    z-index: 100; transition: var(--transition-smooth);
+}
+.navbar.scrolled { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); color: #000 !important; }
+.navbar.scrolled .nav-icon { color: #000; }
+
+.logo { display: flex; align-items: center; gap: 10px; }
+.sv-mark { font-family: var(--font-heading); font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
+.sv-text { font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; margin-top: 5px; }
+
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: currentColor; transition: var(--transition-smooth); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-social { display: flex; gap: 1.5rem; }
+.nav-icon { font-size: 1.2rem; transition: var(--transition-smooth); color: inherit; }
+.nav-icon:hover { transform: translateY(-3px); }
+
+/* --- HERO --- */
+.hero { height: 100vh; width: 100%; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; color: #fff; }
+.hero-video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+.hero-video { width: 100%; height: 100%; object-fit: cover; }
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); } /* Dark overlay for text readability */
+.hero-content { text-align: center; z-index: 2; }
+.hero-title { font-size: 6vw; line-height: 1; margin-bottom: 1rem; font-style: italic; }
+.hero-subtitle { font-size: 1.1rem; font-weight: 300; max-width: 600px; margin: 0 auto 3rem; letter-spacing: 1px; }
+.btn-explore { display: inline-block; padding: 1rem 3rem; background-color: #fff; color: #000; border-radius: 50px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition-smooth); }
+.btn-explore:hover { background-color: var(--brand-pink); color: #000; transform: translateY(-5px); }
+
+/* --- PREMIUM PRODUCT CARDS --- */
+.catalog-section { padding: var(--spacing-xl) 5%; }
+.section-header { text-align: center; margin-bottom: var(--spacing-lg); }
+.section-title { font-size: 3.5rem; font-style: italic; }
+
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+.product-card { display: flex; flex-direction: column; cursor: pointer; }
+.product-image-container { position: relative; aspect-ratio: 3/4; overflow: hidden; background: var(--bg-secondary); margin-bottom: 1rem; }
+.product-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.6s ease, transform 1.5s ease; }
+.hover-img { opacity: 0; }
+.product-card:hover .main-img { opacity: 0; }
+.product-card:hover .hover-img { opacity: 1; transform: scale(1.05); }
+
+/* Quick Actions Overlay */
+.product-quick-actions { position: absolute; bottom: -50px; left: 0; width: 100%; padding: 1rem; display: flex; justify-content: center; transition: var(--transition-smooth); opacity: 0; }
+.product-card:hover .product-quick-actions { bottom: 0; opacity: 1; }
+.btn-quick-buy { background: #fff; color: #000; padding: 0.8rem 2rem; border-radius: 50px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: var(--transition-smooth); }
+.btn-quick-buy:hover { background: #25D366; color: #fff; } /* WhatsApp Green */
+
+.product-details { text-align: center; }
+.product-category { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; }
+.product-name { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; font-family: var(--font-body); }
+.product-meta { display: flex; justify-content: center; align-items: center; gap: 1rem; font-size: 0.85rem; color: var(--text-secondary); }
+.sizes { font-weight: 600; }
+.colors { display: flex; gap: 5px; }
+.color-swatch { width: 15px; height: 15px; border-radius: 50%; display: inline-block; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); }
+
+/* --- FOOTER SECTIONS --- */
+.premium-footer { background: #fdfafb; padding: var(--spacing-lg) 5% 2rem; border-top: 1px solid #eee; }
+.footer-container { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+
+.footer-heading { font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-heading); font-style: italic; }
+.footer-address { font-size: 1.1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+.map-wrapper { width: 100%; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+.footer-contact-section { display: flex; flex-direction: column; justify-content: center; }
+.footer-logo { margin-bottom: 1rem; }
+.footer-logo .sv-mark { font-size: 4rem; color: var(--brand-pink); }
+.footer-subtext { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.6; }
+
+.social-cards { display: flex; flex-direction: column; gap: 1rem; }
+.social-card { display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; background: #fff; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: var(--transition-smooth); border: 1px solid transparent; }
+.social-card i { font-size: 2rem; }
+.social-card div { display: flex; flex-direction: column; }
+.social-card div strong { font-size: 1.1rem; font-weight: 600; }
+.social-card div span { color: var(--text-secondary); font-size: 0.9rem; }
+.social-card.whatsapp { color: #25D366; }
+.social-card.instagram { color: #E1306C; }
+.social-card:hover { transform: translateX(10px); border-color: var(--brand-pink); }
+
+.footer-bottom { border-top: 1px solid #ddd; padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-secondary); }
+.footer-links { display: flex; gap: 1.5rem; }
+.policy-link { transition: color 0.3s ease; }
+.policy-link:hover { color: var(--accent); }
+
+@media (max-width: 768px) {
+    .footer-container { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    .hero-title { font-size: 12vw; }
+}

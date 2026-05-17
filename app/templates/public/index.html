@@ -1,0 +1,359 @@
+{% extends "base.html" %}
+
+{% block title %}Vshein - Boutique Curada en Colombia{% endblock %}
+
+{% block content %}
+<!-- GLOBAL STYLES (Film Grain + ExoApe Aesthetic) -->
+<style>
+  /* Film Grain Overlay (Estilo Andreas Antonsson) */
+  .film-grain::after {
+      content: ''; position: fixed; inset: 0; z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: 0.5;
+  }
+  /* Loader Truck */
+  .loader { width: fit-content; height: fit-content; display: flex; align-items: center; justify-content: center; }
+  .truckWrapper { width: 200px; height: 100px; display: flex; flex-direction: column; position: relative; align-items: center; justify-content: flex-end; overflow-x: hidden; }
+  .truckBody { width: 130px; height: fit-content; margin-bottom: 6px; animation: motion 1s linear infinite; }
+  @keyframes motion { 0% { transform: translateY(0px); } 50% { transform: translateY(3px); } 100% { transform: translateY(0px); } }
+  .truckTires { width: 130px; height: fit-content; display: flex; align-items: center; justify-content: space-between; padding: 0px 10px 0px 15px; position: absolute; bottom: 0; }
+  .truckTires svg { width: 24px; }
+  .road { width: 100%; height: 1.5px; background-color: #d4a59a; position: relative; bottom: 0; align-self: flex-end; border-radius: 3px; }
+  .road::before { content: ""; position: absolute; width: 20px; height: 100%; background-color: #d4a59a; right: -50%; border-radius: 3px; animation: roadAnimation 1.4s linear infinite; border-left: 10px solid #fce4dc; }
+  .road::after { content: ""; position: absolute; width: 10px; height: 100%; background-color: #d4a59a; right: -65%; border-radius: 3px; animation: roadAnimation 1.4s linear infinite; border-left: 4px solid #fce4dc; }
+  .lampPost { position: absolute; bottom: 0; right: -90%; height: 90px; animation: roadAnimation 1.4s linear infinite; }
+  @keyframes roadAnimation { 0% { transform: translateX(0px); } 100% { transform: translateX(-350px); } }
+  .rainbow-text {
+      background: linear-gradient(90deg, #d4a59a, #c9929e, #a29bfe, #7ec8c8, #d4a59a);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: rainbow 3s linear infinite;
+  }
+  @keyframes rainbow { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+  /* Ticker */
+  @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .animate-ticker { animation: tickerScroll 30s linear infinite; }
+  /* ExoApe stagger grid */
+  .stagger-col-right { padding-top: 120px; }
+  .surreal-scanline {
+      background-image: linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+      background-size: 100% 12px;
+      mix-blend-mode: soft-light;
+  }
+  .hero-mirror {
+      position: absolute; inset: auto 6vw 8vh auto; width: min(28vw, 360px); aspect-ratio: 2/3;
+      border: 1px solid rgba(255,255,255,0.22); transform: rotate(-7deg);
+      backdrop-filter: blur(8px); background: rgba(255,255,255,0.05);
+      box-shadow: 0 40px 120px rgba(0,0,0,0.35);
+  }
+  .hero-mirror::after {
+      content: ""; position: absolute; inset: 10%; border: 1px solid rgba(255,255,255,0.18);
+  }
+  .dream-frame {
+      clip-path: polygon(8% 0, 100% 5%, 92% 100%, 0 94%);
+  }
+  .product-card {
+      will-change: transform;
+  }
+  .product-card img {
+      filter: saturate(0.92) contrast(1.03);
+  }
+  .product-card:hover img {
+      filter: saturate(1.06) contrast(1.05);
+  }
+  @media (max-width: 768px) {
+      .hero-mirror { display: none; }
+      .stagger-col-right { padding-top: 0; }
+  }
+  @keyframes stripScroll { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+</style>
+
+<!-- INCLUDES MODULARES (< 500 LÍNEAS POR ARCHIVO) -->
+{% include "public/includes/preloader.html" %}
+{% include "public/includes/hero.html" %}
+
+<!-- DIVIDER: Video Horizontal entre Hero y Catálogo -->
+<section class="relative w-full overflow-hidden bg-brand-dark" style="height: 50vh;">
+    <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50">
+        <source src="https://videos.pexels.com/video-files/5721810/5721810-uhd_2560_1440_25fps.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-transparent to-[#f5f0ec]"></div>
+    <div data-anim="reveal" class="relative z-10 flex items-center justify-center h-full">
+        <p class="font-serif text-4xl md:text-6xl font-bold text-white/80 tracking-tighter text-center">Nueva Temporada</p>
+    </div>
+</section>
+
+{% include "public/includes/catalogo.html" %}
+
+<!-- MARQUEE DIVIDER INSPIRENTE -->
+<div class="overflow-hidden border-y border-brand-dark/20 py-8 bg-brand-dark text-[#d4af37]">
+    <div class="flex gap-16 whitespace-nowrap animate-ticker items-center">
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Brilla con luz propia</span>
+        <span class="text-white/50 text-3xl">✦</span>
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Eres suficiente</span>
+        <span class="text-white/50 text-3xl">✦</span>
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Abraza tu autenticidad</span>
+        <span class="text-white/50 text-3xl">✦</span>
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Viste tu confianza</span>
+        <span class="text-white/50 text-3xl">✦</span>
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Belleza sin filtros</span>
+        <span class="text-white/50 text-3xl">✦</span>
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Poder femenino</span>
+        <span class="text-white/50 text-3xl">✦</span>
+        <!-- Duplicado para loop continuo -->
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Brilla con luz propia</span>
+        <span class="text-white/50 text-3xl">✦</span>
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Eres suficiente</span>
+        <span class="text-white/50 text-3xl">✦</span>
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Abraza tu autenticidad</span>
+        <span class="text-white/50 text-3xl">✦</span>
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Viste tu confianza</span>
+        <span class="text-white/50 text-3xl">✦</span>
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Belleza sin filtros</span>
+        <span class="text-white/50 text-3xl">✦</span>
+        <span class="font-serif italic text-4xl md:text-6xl font-light tracking-wide">Poder femenino</span>
+        <span class="text-white/50 text-3xl">✦</span>
+    </div>
+    <style>
+        @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .animate-ticker { animation: tickerScroll 40s linear infinite; }
+    </style>
+</div>
+
+<!-- LIFESTYLE BANNER -->
+<section class="relative w-full overflow-hidden bg-brand-dark" style="aspect-ratio: 1440/600;">
+    <video autoplay loop muted playsinline data-anim="zoom" class="absolute inset-0 w-full h-full object-cover">
+        <source src="https://videos.pexels.com/video-files/30744217/13151517_1440_2560_30fps.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+    <div data-anim="reveal" class="absolute bottom-12 left-6 md:left-12 z-10 text-white max-w-xl">
+        <p class="font-sans text-xs uppercase tracking-[0.3em] mb-3 opacity-70">Lifestyle</p>
+        <h2 class="font-serif text-4xl md:text-6xl font-bold leading-tight tracking-tight">Tu estilo, tu identidad</h2>
+    </div>
+</section>
+
+{% include "public/includes/categories.html" %}
+{% include "public/includes/mapa.html" %}
+{% include "public/includes/quick_view.html" %}
+{% include "public/includes/footer.html" %}
+
+<!-- ==========================================
+     LÓGICA DE ANIMACIÓN (GSAP + LENIS)
+     ========================================== -->
+<script>
+try {
+    window.setTimeout(() => {
+        const preloader = document.getElementById('preloader');
+        const curtainOverlay = document.getElementById('curtain-overlay');
+        if (preloader) preloader.remove();
+        if (curtainOverlay) curtainOverlay.remove();
+        document.body.style.overflow = 'auto';
+    }, 4200);
+
+    document.addEventListener("DOMContentLoaded", function() {
+        if (document.getElementById('map')) {
+            var map = L.map('map').setView([4.6097, -74.0817], 13);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 20
+            }).addTo(map);
+            var marker = L.marker([4.6097, -74.0817]).addTo(map);
+            marker.bindPopup("<b style='color:black;'>Shein Vélez Boutique</b><br><span style='color:black;'>Flagship Store Bogotá</span>").openPopup();
+        }
+    });
+
+    // Inicializar Smooth Scroll (Lenis)
+    const lenis = typeof Lenis !== 'undefined' ? new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+    }) : { raf() {}, stop() {}, start() {} };
+    window.vsheinLenis = lenis;
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    if (typeof Lenis !== 'undefined') {
+        requestAnimationFrame(raf);
+    }
+
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        const preloader = document.getElementById('preloader');
+        if (preloader) preloader.remove();
+        document.body.style.overflow = 'auto';
+        window.__vsheinAnimationFallback = true;
+    } else {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // --- TRANSICIÓN CINEMÁTICA ---
+    document.body.style.overflow = 'hidden';
+    let counter = { value: 0 };
+    let percentText = document.getElementById("loader-percent");
+
+    const curtainOverlay = document.createElement('div');
+    curtainOverlay.id = 'curtain-overlay';
+    curtainOverlay.style.cssText = 'position:fixed;inset:0;z-index:99;display:flex;pointer-events:none;';
+    for (let i = 0; i < 5; i++) {
+        const panel = document.createElement('div');
+        panel.className = 'curtain-panel';
+        panel.style.cssText = 'flex:1;background:#0a0a0a;height:100%;';
+        curtainOverlay.appendChild(panel);
+    }
+    document.body.appendChild(curtainOverlay);
+
+    const tlLoader = gsap.timeline({
+        onComplete: () => {
+            document.body.style.overflow = 'auto';
+            document.body.classList.add('overflow-x-hidden');
+            curtainOverlay.remove();
+            document.getElementById('preloader').remove();
+        }
+    });
+
+    tlLoader.to(counter, {
+        value: 100, duration: 2.5, ease: "power4.inOut",
+        onUpdate: () => { percentText.innerText = Math.round(counter.value) + "%"; }
+    })
+    .fromTo(".loading-text", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, "-=2")
+    .to(".preloader-box", { scale: 0.8, opacity: 0, duration: 0.6, ease: "power3.in" })
+    .to("#preloader", { opacity: 0, duration: 0.3 }, "-=0.2")
+    .to(".curtain-panel", {
+        scaleY: 0, duration: 0.8, ease: "power4.inOut",
+        stagger: { amount: 0.3, from: "center" },
+        transformOrigin: "top"
+    }, "-=0.1")
+    .from("nav", { yPercent: -100, duration: 0.9, ease: "power3.out" }, "-=0.5")
+    .fromTo(".hero-title", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" }, "-=0.6")
+    .fromTo(".hero-subtitle", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.8")
+    .fromTo(".hero-info", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: "power3.out" }, "-=0.7");
+
+    // --- SCROLL ANIMATIONS ---
+    gsap.utils.toArray("article").forEach((card, i) => {
+        gsap.from(card, {
+            opacity: 0, scale: 0.95, y: 30, duration: 0.5,
+            delay: (i % 2) * 0.05, ease: "power2.out",
+            scrollTrigger: { trigger: card, start: "top 95%", end: "top 30%", toggleActions: "play reverse play reverse" }
+        });
+    });
+
+    gsap.utils.toArray("[data-anim='reveal']").forEach(el => {
+        gsap.from(el, { opacity: 0, y: 60, duration: 1, ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 85%", end: "top 30%", toggleActions: "play reverse play reverse" }
+        });
+    });
+
+    gsap.utils.toArray("[data-anim='card']").forEach((el, i) => {
+        gsap.from(el, {
+            opacity: 0, scale: 0.7, y: 60, duration: 0.9,
+            delay: i * 0.12, ease: "back.out(1.6)",
+            scrollTrigger: { trigger: el, start: "top 85%", end: "top 30%", toggleActions: "play reverse play reverse" }
+        });
+    });
+
+    gsap.utils.toArray("h2").forEach(el => {
+        gsap.from(el, { opacity: 0, y: 60, duration: 1, ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 85%", end: "top 30%", toggleActions: "play reverse play reverse" }
+        });
+    });
+
+    gsap.utils.toArray("[data-anim='zoom']").forEach(el => {
+        gsap.fromTo(el, { scale: 1.18 }, { scale: 1, ease: "none",
+            scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true }
+        });
+    });
+
+    // Filtros de catalogo
+    const filterButtons = document.querySelectorAll('.catalog-filter');
+    const productCards = document.querySelectorAll('.product-card');
+    const activeFilterClass = 'catalog-filter bg-brand-dark text-white text-[11px] uppercase tracking-widest font-bold px-4 py-3';
+    const idleFilterClass = 'catalog-filter border border-black/10 text-brand-dark text-[11px] uppercase tracking-widest font-bold px-4 py-3 hover:bg-white transition-colors';
+
+    function applyCatalogFilter(filter) {
+        filterButtons.forEach(item => {
+            item.className = item.dataset.filter === filter ? activeFilterClass : idleFilterClass;
+        });
+
+        productCards.forEach(card => {
+            const visible = filter === 'all' || card.dataset.category === filter;
+            card.classList.toggle('hidden', !visible);
+        });
+
+        ScrollTrigger.refresh();
+    }
+    window.applyCatalogFilter = applyCatalogFilter;
+
+    document.addEventListener('click', (event) => {
+        const button = event.target.closest('.catalog-filter');
+        const categoryJump = event.target.closest('.category-jump');
+        if (button) {
+            applyCatalogFilter(button.dataset.filter);
+        }
+        if (categoryJump) {
+            applyCatalogFilter(categoryJump.dataset.filter);
+        }
+    });
+
+    // Modal de producto
+    const modal = document.getElementById('quick-view-modal');
+    const closeBtn = document.getElementById('close-modal');
+    const modalImage = document.getElementById('modal-image');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalSizes = document.getElementById('modal-sizes');
+    const modalCategory = document.getElementById('modal-category');
+    const modalWhatsapp = document.getElementById('modal-whatsapp');
+    const whatsappNumber = '573000000000';
+
+    function closeProductModal() {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        lenis.start();
+    }
+
+    productCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const data = JSON.parse(card.dataset.product);
+            const imageSrc = card.querySelector('img') ? card.querySelector('img').src : '';
+            const message = encodeURIComponent(`Hola Vshein, quiero consultar disponibilidad de: ${data.name}. Tallas: ${data.sizes || 'por confirmar'}.`);
+
+            const randWatchers = Math.floor(Math.random() * 15) + 2;
+            
+            modalImage.src = imageSrc || data.image || '';
+            modalImage.alt = data.name;
+            modalTitle.innerText = data.name;
+            modalDesc.innerText = data.description || 'Prenda seleccionada para la coleccion Vshein.';
+            modalSizes.innerText = data.sizes || 'Consultar';
+            modalCategory.innerText = `${data.category} - ${data.subcategory}`;
+            document.getElementById('modal-watching').innerText = `${randWatchers} personas viendo esto`;
+            modalWhatsapp.href = `https://wa.me/${whatsappNumber}?text=${message}`;
+            modalWhatsapp.dataset.item = data.id;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            lenis.stop();
+        });
+    });
+
+    closeBtn.addEventListener('click', closeProductModal);
+    modal.querySelector('[data-modal-close]').addEventListener('click', closeProductModal);
+    window.__vsheinInlineReady = true;
+    }
+} catch (error) {
+    window.__vsheinScriptError = error.message;
+    const preloader = document.getElementById('preloader');
+    const curtainOverlay = document.getElementById('curtain-overlay');
+    if (preloader) preloader.remove();
+    if (curtainOverlay) curtainOverlay.remove();
+    document.body.style.overflow = 'auto';
+}
+</script>
+{% endblock %}

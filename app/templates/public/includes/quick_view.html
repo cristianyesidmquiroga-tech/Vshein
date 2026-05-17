@@ -1,0 +1,40 @@
+<!-- ==========================================
+     MODAL DE PRODUCTO (Quick View)
+     ========================================== -->
+<div id="quick-view-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity px-4">
+    <div class="absolute inset-0" data-modal-close></div>
+    <div class="relative bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto md:overflow-hidden rounded-xl flex flex-col md:flex-row shadow-2xl">
+        <button id="close-modal" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors border border-black/10">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <!-- Modal Image -->
+        <div class="w-full md:w-1/2 bg-[#f0f0f0]">
+            <img id="modal-image" src="" alt="Producto" class="w-full h-[40vh] md:h-full object-cover">
+        </div>
+        <!-- Modal Content -->
+        <div class="w-full md:w-1/2 p-6 md:p-12 flex flex-col justify-center bg-[#f5f0ec]">
+            <p id="modal-category" class="font-sans text-[10px] uppercase tracking-widest text-brand-dark/50 mb-3"></p>
+            <h3 id="modal-title" class="font-serif text-3xl md:text-5xl font-bold text-brand-dark mb-4 leading-tight"></h3>
+            
+            <div class="flex items-center gap-2 mb-6">
+                <span class="flex h-2 w-2 relative">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                </span>
+                <p id="modal-watching" class="font-sans text-[10px] font-bold text-red-500 tracking-wider uppercase"></p>
+            </div>
+            
+            <p id="modal-desc" class="font-sans text-sm text-brand-dark/70 mb-8 leading-relaxed"></p>
+            
+            <div class="mb-8 border-y border-black/10 py-4 flex justify-between items-center">
+                <span class="font-sans text-xs uppercase tracking-widest text-brand-dark/60 font-bold">Tallas:</span>
+                <span id="modal-sizes" class="font-sans text-xs font-bold tracking-widest text-brand-dark border border-black/10 px-3 py-1 rounded"></span>
+            </div>
+            
+            <a id="modal-whatsapp" href="#" target="_blank" class="bg-brand-dark text-white text-center font-sans text-xs uppercase tracking-widest font-bold py-4 px-6 hover:bg-black/80 transition-colors w-full flex items-center justify-center gap-3">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.825 1.452 5.544 0 10.051-4.507 10.054-10.052.002-2.687-1.042-5.212-2.94-7.114-1.897-1.897-4.425-2.938-7.116-2.939-5.545 0-10.052 4.507-10.056 10.053-.001 1.738.454 3.434 1.319 4.937L1.939 22.1l4.708-1.946z"/></svg>
+                Consultar Disponibilidad
+            </a>
+        </div>
+    </div>
+</div>

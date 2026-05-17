@@ -1,0 +1,47 @@
+<!-- ==========================================
+     SECCIÓN DE CATEGORÍAS (3 bloques con hover)
+     ========================================== -->
+<section class="py-24 px-6 md:px-12 bg-brand-dark">
+    <div class="max-w-7xl mx-auto">
+        <div data-anim="reveal" class="text-center mb-16">
+            <p class="font-sans text-xs uppercase tracking-[0.3em] text-white/50 mb-3">Explora por</p>
+            <h2 class="font-serif text-4xl md:text-6xl font-bold text-white">Categorias</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a id="mujer" href="#catalogo" data-anim="card" class="category-jump group relative aspect-[3/4] overflow-hidden cursor-pointer" data-filter="mujer">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80" alt="Mujer" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <p class="font-sans text-xs uppercase tracking-widest opacity-70 mb-1">Colección</p>
+                    <h3 class="font-serif text-3xl font-bold">Mujer</h3>
+                </div>
+            </a>
+            <a id="ninos" href="#catalogo" data-anim="card" class="category-jump group relative aspect-[3/4] overflow-hidden cursor-pointer" data-filter="ninos">
+                <img src="https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=800&q=80" alt="Niños" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <p class="font-sans text-xs uppercase tracking-widest opacity-70 mb-1">Colección</p>
+                    <h3 class="font-serif text-3xl font-bold">Niños</h3>
+                </div>
+            </a>
+            <a id="accesorios" href="#catalogo" data-anim="card" class="category-jump group relative aspect-[3/4] overflow-hidden cursor-pointer" data-filter="accesorios">
+                <img src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80" alt="Accesorios" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <p class="font-sans text-xs uppercase tracking-widest opacity-70 mb-1">Colección</p>
+                    <h3 class="font-serif text-3xl font-bold">Accesorios</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     CTA WHATSAPP (Banner grande)
+     ========================================== -->
+<section class="px-6 md:px-12 pb-12">
+    <a href="https://wa.me/573000000000?text=Hola%20Vshein%2C%20quiero%20asesoria%20para%20comprar" target="_blank" data-anim="reveal" class="track-click bg-brand-dark flex items-center justify-center text-white font-serif font-bold uppercase whitespace-nowrap hover:opacity-90 transition-all duration-300 w-full py-14 md:py-20 text-3xl md:text-5xl tracking-tight gap-5 group" data-target="whatsapp" data-item="banner">
+        <span>Contáctanos por WhatsApp</span>
+        <svg class="w-10 h-10 transition-transform group-hover:translate-x-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+</section>
