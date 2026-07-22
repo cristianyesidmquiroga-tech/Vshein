@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Producto | Vshein{% endblock %}
+{% block content %}
+<main class="page-shell admin-shell">
+  <section class="section">
+    <div class="section-head reveal">
+      <p class="eyebrow">{{ 'Editar' if product else 'Nuevo' }} producto</p>
+      <h1>{{ 'Editar' if product else 'Crear' }} producto</h1>
+    </div>
+
+    <form method="post" class="form-grid reveal">
+      <label>
+        Nombre
+        <input type="text" name="name" value="{{ product.name if product else '' }}" required>
+      </label>
+      <label>
+        Categoria
+        <select name="category_id" required>
+          <option value="">Selecciona</option>
+          {% for category in categories %}
+            <option value="{{ category.id }}" {% if product and product.category_id == category.id %}selected{% endif %}>
+              {{ category.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="full-width">
+        Descripcion
+        <textarea name="description" rows="5" required>{{ product.description if product else '' }}</textarea>
+      </label>
+      <label>
+        Stock
+        <input type="number" name="stock" min="0" value="{{ product.stock if product else 0 }}">
+      </label>
+      <label>
+        Vendidos
+        <input type="number" name="sold_count" min="0" value="{{ product.sold_count if product else 0 }}">
+      </label>
+      <label>
+        Alerta de stock
+        <input type="number" name="low_stock_threshold" min="0" value="{{ product.low_stock_threshold if product else 5 }}">
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" name="featured" {% if product and product.featured %}checked{% endif %}>
+        Destacado
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" name="is_active" {% if not product or product.is_active %}checked{% endif %}>
+        Activo
+      </label>
+      <div class="form-actions full-width">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+        <a class="btn btn-secondary" href="{{ url_for('admin.dashboard') }}">Cancelar</a>
+      </div>
+    </form>
+  </section>
+</main>
+{% endblock %}
+

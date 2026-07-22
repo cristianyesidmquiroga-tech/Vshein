@@ -1,45 +1,47 @@
-import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
-from werkzeug.utils import secure_filename
 
-db = SQLAlchemy()
-login_manager = LoginManager()
+from .bootstrap import seed_demo_data
+from .extensions import db, login_manager
+from .routes.admin import admin_bp
+from .routes.auth import auth_bp
+from .routes.main import main_bp
 
-def create_app():
-    app = Flask(__name__)
-    
-    # Configuraciones básicas
-    app.config['SECRET_KEY'] = 'vshein_super_secret_key_2026'
-    
-    # Base de datos: SQLite para desarrollo, preparable para PostgreSQL
-    basedir = os.path.abspath(os.path.dirname(__file__))
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'vshein.db')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    
-    # Configuración de subidas (Uploads)
-    app.config['UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'uploads')
-    app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # Máximo 50MB para videos
-    
-    # Inicializar extensiones
+
+def create_app(config_object: str | None = None) -> Flask:
+    app = Flask(
+        __name__,
+        instance_relative_config=True,
+        template_folder="templates",
+        static_folder="static",
+    )
+
+    app.config.from_mapping(
+        SECRET_KEY="change-this-in-instance-config",
+        SQLALCHEMY_DATABASE_URI=f"sqlite:///{app.instance_path}/dev.sqlite3",
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        CREATE_ALL_ON_STARTUP=True,
+    )
+
+    if config_object:
+        app.config.from_object(config_object)
+    else:
+        try:
+            app.config.from_pyfile("config.py", silent=True)
+        except (FileNotFoundError, OSError):
+            pass
+
     db.init_app(app)
     login_manager.init_app(app)
-    login_manager.login_view = 'admin.login'
-    
+    login_manager.login_view = "auth.login"
+    login_manager.login_message = "Debes iniciar sesion para entrar al panel."
+
+    app.register_blueprint(main_bp)
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(admin_bp)
+
     with app.app_context():
-        # Importar modelos para que SQLAlchemy los registre
-        from . import models
-        db.create_all()
-        
-        @login_manager.user_loader
-        def load_user(user_id):
-            return models.User.query.get(int(user_id))
-        
-        # Registrar Blueprints
-        from .routes.public import public_bp
-        from .routes.admin import admin_bp
-        app.register_blueprint(public_bp)
-        app.register_blueprint(admin_bp)
-        
+        if app.config.get("CREATE_ALL_ON_STARTUP", True):
+            db.create_all()
+            seed_demo_data()
+
     return app

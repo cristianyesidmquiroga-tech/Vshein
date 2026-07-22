@@ -1,52 +1,111 @@
-from . import db
-from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
+from __future__ import annotations
+
 from datetime import datetime
 
-class User(UserMixin, db.Model):
-    __tablename__ = 'users'
+from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from .extensions import db, login_manager
+
+
+class TimestampMixin:
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(
+        db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
+
+
+class User(UserMixin, TimestampMixin, db.Model):
+    __tablename__ = "users"
+
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True, nullable=False)
-    password_hash = db.Column(db.String(256), nullable=False)
+    name = db.Column(db.String(120), nullable=False)
+    email = db.Column(db.String(180), unique=True, nullable=False, index=True)
+    password_hash = db.Column(db.String(255), nullable=False)
+    role = db.Column(db.String(20), nullable=False, default="empleado")
+    is_active_user = db.Column(db.Boolean, nullable=False, default=True)
 
-    def __init__(self, username=None, **kwargs):
-        super(User, self).__init__(**kwargs)
-        if username:
-            self.username = username
-
-    def set_password(self, password):
+    def set_password(self, password: str) -> None:
         self.password_hash = generate_password_hash(password)
-        
-    def check_password(self, password):
+
+    def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
 
-class Product(db.Model):
-    __tablename__ = 'products'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), nullable=False)
-    description = db.Column(db.Text, nullable=True)
-    category = db.Column(db.String(50), nullable=False) # 'mujer', 'ninos', 'accesorios'
-    subcategory = db.Column(db.String(50), nullable=True) # 'pantalon', 'ropa interior', 'faldas', 'vestidos', etc.
-    sizes = db.Column(db.String(100), nullable=True) # E.g., 'S,M,L' o 'Única'
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    
-    # Relación con fotos
-    media = db.relationship('ProductMedia', backref='product', lazy=True, cascade='all, delete-orphan')
+    @property
+    def is_admin(self) -> bool:
+        return self.role == "admin"
 
-class ProductMedia(db.Model):
-    __tablename__ = 'product_media'
+
+class Category(TimestampMixin, db.Model):
+    __tablename__ = "categories"
+
     id = db.Column(db.Integer, primary_key=True)
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    name = db.Column(db.String(80), unique=True, nullable=False, index=True)
+    slug = db.Column(db.String(100), unique=True, nullable=False, index=True)
+
+    products = db.relationship(
+        "Product", back_populates="category", cascade="all, delete-orphan"
+    )
+
+
+class Product(TimestampMixin, db.Model):
+    __tablename__ = "products"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(140), nullable=False, index=True)
+    slug = db.Column(db.String(160), unique=True, nullable=False, index=True)
+    description = db.Column(db.Text, nullable=False)
+    stock = db.Column(db.Integer, nullable=False, default=0)
+    sold_count = db.Column(db.Integer, nullable=False, default=0)
+    low_stock_threshold = db.Column(db.Integer, nullable=False, default=5)
+    featured = db.Column(db.Boolean, nullable=False, default=False)
+    is_active = db.Column(db.Boolean, nullable=False, default=True)
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"), nullable=False)
+
+    category = db.relationship("Category", back_populates="products")
+    media_items = db.relationship(
+        "ProductMedia", back_populates="product", cascade="all, delete-orphan"
+    )
+
+    @property
+    def stock_status(self) -> str:
+        if self.stock <= 0:
+            return "agotado"
+        if self.stock <= self.low_stock_threshold:
+            return "bajo"
+        return "normal"
+
+
+class ProductMedia(TimestampMixin, db.Model):
+    __tablename__ = "product_media"
+
+    id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
+    media_type = db.Column(db.String(20), nullable=False, default="image")
     file_path = db.Column(db.String(255), nullable=False)
-    media_type = db.Column(db.String(20), nullable=False) # 'image' o 'video'
-    color_variant = db.Column(db.String(50), nullable=True) # E.g., 'Rojo', 'Azul'
-    order = db.Column(db.Integer, default=0) # Para ordenar qué foto va primero
+    caption = db.Column(db.String(180), nullable=True)
+    sort_order = db.Column(db.Integer, nullable=False, default=0)
 
-class AnalyticsEvent(db.Model):
-    __tablename__ = 'analytics_events'
+    product = db.relationship("Product", back_populates="media_items")
+
+
+class InventoryMovement(TimestampMixin, db.Model):
+    __tablename__ = "inventory_movements"
+
     id = db.Column(db.Integer, primary_key=True)
-    event_type = db.Column(db.String(50), nullable=False) # 'page_view', 'click_wsp', 'click_ig', 'dwell_time'
-    element_id = db.Column(db.String(100), nullable=True) # ID del producto o sección
-    duration_seconds = db.Column(db.Integer, nullable=True) # Para dwell_time
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    session_id = db.Column(db.String(100), nullable=True) # Para rastrear un usuario anónimo
+    product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    movement_type = db.Column(db.String(20), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    note = db.Column(db.String(255), nullable=True)
+
+    product = db.relationship("Product")
+    user = db.relationship("User")
+
+
+@login_manager.user_loader
+def load_user(user_id: str) -> User | None:
+    try:
+        return db.session.get(User, int(user_id))
+    except (TypeError, ValueError):
+        return None

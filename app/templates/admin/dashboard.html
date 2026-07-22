@@ -1,49 +1,115 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vshein Admin - Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f4f4f4; margin: 0; }
-        .sidebar { width: 250px; background: #000; color: #fff; height: 100vh; position: fixed; padding: 2rem 1rem; box-sizing: border-box; }
-        .sidebar h2 { margin-bottom: 2rem; font-size: 1.5rem; text-align: center; }
-        .sidebar a { display: block; color: #ccc; text-decoration: none; padding: 0.8rem 1rem; margin-bottom: 0.5rem; border-radius: 4px; }
-        .sidebar a:hover, .sidebar a.active { background: #333; color: #fff; }
-        .main-content { margin-left: 250px; padding: 2rem; }
-        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-        .metric-card { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center; }
-        .metric-value { font-size: 2.5rem; font-weight: 600; margin: 1rem 0; color: #000; }
-        .metric-label { font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
-    </style>
-</head>
-<body>
-    <div class="sidebar">
-        <h2>Vshein Admin</h2>
-        <a href="{{ url_for('admin.dashboard') }}" class="active">Dashboard</a>
-        <a href="{{ url_for('admin.inventory') }}">Inventario</a>
-        <a href="{{ url_for('admin.logout') }}" style="margin-top: auto; color: #ff4c4c;">Cerrar Sesión</a>
+{% extends "base.html" %}
+{% block title %}Panel | Vshein{% endblock %}
+{% block content %}
+<main class="page-shell admin-shell">
+  <section class="admin-hero reveal">
+    <div>
+      <p class="eyebrow">Panel de control</p>
+      <h1>Inventario, alertas y productos mas vendidos</h1>
+      <p>
+        Vista base para empleados y administradores, con filtros por categoria, CRUD y
+        alertas de stock.
+      </p>
     </div>
-    
-    <div class="main-content">
-        <h1>Dashboard General</h1>
-        <p>Bienvenido al centro de control de tu boutique.</p>
-        
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <div class="metric-label">Productos en Catálogo</div>
-                <div class="metric-value">{{ total_products }}</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-label">Clics a WhatsApp</div>
-                <div class="metric-value" style="color: #25D366;">{{ wsp_clicks }}</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-label">Clics a Instagram</div>
-                <div class="metric-value" style="color: #E1306C;">{{ ig_clicks }}</div>
-            </div>
-        </div>
+    <div class="admin-cards">
+      <article>
+        <span>Stock total</span>
+        <strong>{{ total_stock }}</strong>
+      </article>
+      <article>
+        <span>Productos activos</span>
+        <strong>{{ products|length }}</strong>
+      </article>
+      <article>
+        <span>Alertas</span>
+        <strong>{{ low_stock|length }}</strong>
+      </article>
     </div>
-</body>
-</html>
+  </section>
+
+  <section class="section admin-section">
+    <div class="admin-toolbar reveal">
+      <form class="filter-form" method="get">
+        <input type="search" name="search" value="{{ search }}" placeholder="Buscar producto">
+        <select name="category">
+          <option value="">Todas las categorias</option>
+          {% for category in categories %}
+            <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>
+              {{ category.name }}
+            </option>
+          {% endfor %}
+        </select>
+        <button class="btn btn-secondary" type="submit">Filtrar</button>
+      </form>
+      <a class="btn btn-primary" href="{{ url_for('admin.product_create') }}">Nuevo producto</a>
+    </div>
+
+    <div class="dashboard-grid">
+      <article class="panel reveal">
+        <h3>Mas vendidos</h3>
+        <ul class="stat-list">
+          {% for product in most_sold %}
+            <li>
+              <span>{{ product.name }}</span>
+              <strong>{{ product.sold_count }}</strong>
+            </li>
+          {% endfor %}
+        </ul>
+      </article>
+
+      <article class="panel reveal">
+        <h3>Alertas de stock</h3>
+        <ul class="alert-list">
+          {% for product in low_stock %}
+            <li class="alert {{ 'danger' if product.stock == 0 else 'warning' }}">
+              {{ product.name }} - {{ product.stock }} en inventario
+            </li>
+          {% else %}
+            <li>No hay alertas activas.</li>
+          {% endfor %}
+        </ul>
+      </article>
+    </div>
+
+    <article class="panel table-panel reveal">
+      <div class="panel-head">
+        <h3>Inventario completo</h3>
+        <p>Orden alfabetico por categoria y producto.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Categoria</th>
+              <th>Producto</th>
+              <th>Stock</th>
+              <th>Vendidos</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in products %}
+              <tr>
+                <td>{{ product.category.name }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.stock }}</td>
+                <td>{{ product.sold_count }}</td>
+                <td><span class="badge badge-{{ product.stock_status }}">{{ product.stock_status }}</span></td>
+                <td class="actions">
+                  <a href="{{ url_for('admin.product_edit', product_id=product.id) }}">Editar</a>
+                  <form method="post" action="{{ url_for('admin.product_delete', product_id=product.id) }}" onsubmit="return confirm('Eliminar producto?');">
+                    <button type="submit">Eliminar</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </section>
+</main>
+{% endblock %}
+

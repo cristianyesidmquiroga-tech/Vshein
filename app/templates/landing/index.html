@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block title %}Shein Velez | Inicio{% endblock %}
+{% block content %}
+<main class="page-shell">
+  <section id="inicio" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content reveal">
+      <p class="eyebrow">Moda femenina con identidad</p>
+      <h1>Glamour a tu alcance</h1>
+      <p class="hero-copy">
+        Una landing pensada para mostrar prendas, videos, redes y estilo sin carrito ni pagos,
+        con una experiencia mobile first y movimiento suave al hacer scroll.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#productos">Ver productos</a>
+        <a class="btn btn-secondary" href="#contacto">Contactanos</a>
+      </div>
+      <div class="hero-badges">
+        <span>Imagenes</span>
+        <span>Videos</span>
+        <span>Responsive</span>
+        <span>Admin</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="productos" class="section">
+    <div class="section-head reveal">
+      <p class="eyebrow">Productos</p>
+      <h2>Vitrina visual de la tienda</h2>
+      <p>
+        Aqui puedes mostrar fotos y clips de cada prenda con una breve descripcion.
+      </p>
+    </div>
+
+    <div class="category-strip reveal">
+      <span>Blusas</span>
+      <span>Vestidos</span>
+      <span>Pantalones</span>
+      <span>Faldas</span>
+      <span>Accesorios</span>
+      <span>Joyería</span>
+    </div>
+
+    <div class="product-grid">
+      <article class="product-card reveal">
+        <div class="product-media">
+          <div class="product-placeholder">Prenda Destacada 1</div>
+        </div>
+        <div class="product-body">
+          <p class="product-category">Vestidos</p>
+          <h3>Vestido Elegante de Noche</h3>
+          <p>Diseño exclusivo para ocasiones especiales con acabados de alta calidad.</p>
+        </div>
+      </article>
+      <article class="product-card reveal">
+        <div class="product-media">
+          <div class="product-placeholder">Prenda Destacada 2</div>
+        </div>
+        <div class="product-body">
+          <p class="product-category">Blusas</p>
+          <h3>Blusa Estilo Ejecutivo</h3>
+          <p>Frescura, frescura y sofisticación para un look versátil de día o noche.</p>
+        </div>
+      </article>
+      <article class="product-card reveal">
+        <div class="product-media">
+          <div class="product-placeholder">Prenda Destacada 3</div>
+        </div>
+        <div class="product-body">
+          <p class="product-category">Accesorios</p>
+          <h3>Bolso de Mano Chic</h3>
+          <p>El complemento perfecto para resaltar cualquier outfit.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="quienes-somos" class="section section-alt">
+    <div class="split reveal">
+      <div>
+        <p class="eyebrow">Quienes somos</p>
+        <h2>Una tienda creada para destacar estilo y confianza</h2>
+        <p>
+          Esta seccion puede contar la historia de la marca, el tipo de clienta a la que se
+          dirige y la propuesta visual de la tienda.
+        </p>
+      </div>
+      <div class="info-panel">
+        <h3>Enfoque</h3>
+        <ul>
+          <li>Prendas femeninas seleccionadas</li>
+          <li>Contenido visual con fotos y video</li>
+          <li>Experiencia limpia y rapida en celular</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="section">
+    <div class="section-head reveal">
+      <p class="eyebrow">Contactanos</p>
+      <h2>Redes y canales directos</h2>
+    </div>
+
+    <div class="contact-grid">
+      <a href="https://www.instagram.com/shein_velez?igsh=cGl2dHZtdjFiamQz" target="_blank" rel="noopener noreferrer" class="contact-card reveal contact-link">
+        <h3>Instagram</h3>
+        <p>@shein_velez</p>
+      </a>
+      <a href="https://www.facebook.com/share/18rrCCD2hX/" target="_blank" rel="noopener noreferrer" class="contact-card reveal contact-link">
+        <h3>Facebook</h3>
+        <p>Shein Vélez Y Miss Lindas</p>
+      </a>
+      <a href="https://wa.me/573125615080?text=Hola,%20quisiera%20recibir%20información%20de%20sus%20prendas" target="_blank" rel="noopener noreferrer" class="contact-card reveal contact-link">
+        <h3>WhatsApp</h3>
+        <p>+57 312 561 5080</p>
+      </a>
+    </div>
+
+    <div class="map-container reveal">
+      <div class="map-header">
+        <h3>Ubicación de nuestro local</h3>
+        <p>Calle 9 # 3-86, Vélez, Santander, Colombia</p>
+      </div>
+      <div class="map-wrapper">
+        <iframe
+          title="Ubicación de Shein Velez"
+          src="https://maps.google.com/maps?q=6.012944969717085,-73.6729699674148&hl=es&z=19&output=embed"
+          width="100%"
+          height="450"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h3>Shein Velez</h3>
+        <p>Moda femenina con una presencia visual elegante y llamativa.</p>
+      </div>
+      <div>
+        <h3>Politicas</h3>
+        <p>Politica de privacidad, terminos y condiciones, tratamiento de datos y demas textos legales de acuerdo con Colombia.</p>
+      </div>
+    </div>
+  </footer>
+</main>
+{% endblock %}
