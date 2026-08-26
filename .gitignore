@@ -5,11 +5,14 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-instance/*.pyc
-instance/*.log
-instance/*.sqlite3
-instance/*.db
-instance/config.py
-static/img/*
-!static/img/.gitkeep
+.env
+.pid
+data/*.sqlite3
+data/*.db
+app/static/uploads/*
+!app/static/uploads/.gitkeep
 
+
+# Documentos internos (auditoria, planes): contienen datos del negocio
+# y detalle de vulnerabilidades. Este repo es publico.
+docs/
