@@ -1,0 +1,19 @@
+# Nada de esto debe entrar a la imagen. Especialmente .env y docs/:
+# quedarian horneados dentro del contenedor y viajarian con cada despliegue.
+.env
+docs/
+data/
+app/static/uploads/
+
+.git/
+.gitignore
+.gitattributes
+.claude/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+README.md
