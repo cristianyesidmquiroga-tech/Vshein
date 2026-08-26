@@ -1,0 +1,6 @@
+# Dependencias solo de desarrollo. En el servidor se instala unicamente
+# requirements.txt.
+-r requirements.txt
+
+pytest>=8.0,<10.0
+pytest-flask>=1.3,<2.0
