@@ -1,0 +1,13 @@
+# El despliegue es Linux (Docker sobre VPS). Normalizar los finales de linea
+# a LF evita que un archivo escrito en Windows llegue con CRLF y rompa
+# scripts o entrypoints dentro del contenedor.
+* text=auto eol=lf
+
+# Binarios: nunca tocar.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.sqlite3 binary
+*.docx binary
