@@ -1,0 +1,4 @@
+[tool.pytest.ini_options]
+# Permite correr las pruebas con `pytest` a secas desde la raiz.
+testpaths = ["tests"]
+pythonpath = ["."]
