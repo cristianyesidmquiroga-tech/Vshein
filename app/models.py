@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -8,10 +8,16 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .extensions import db, login_manager
 
 
+def utcnow() -> datetime:
+    # datetime.utcnow() quedo deprecado en Python 3.12. Se conserva el valor
+    # naive en UTC para no cambiar lo que ya hay guardado en la base.
+    return datetime.now(timezone.utc).replace(tzinfo=None)
+
+
 class TimestampMixin:
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, nullable=False, default=utcnow)
     updated_at = db.Column(
-        db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow
+        db.DateTime, nullable=False, default=utcnow, onupdate=utcnow
     )
 
 
