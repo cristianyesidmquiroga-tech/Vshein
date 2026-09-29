@@ -77,7 +77,8 @@ a { color: inherit; }
 
 /* ============ TOPBAR ============ */
 .topbar {
-  position: relative;
+  position: fixed;
+  inset: 0 0 auto 0;
   z-index: 50;
   display: flex;
   align-items: center;
@@ -130,7 +131,7 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2rem 1.4rem 4rem;
+  padding: 6.5rem 1.4rem 4rem;
   overflow: hidden;
   background:
     radial-gradient(120% 70% at 50% 0%, #FFFDF8 0%, var(--bg) 55%),
