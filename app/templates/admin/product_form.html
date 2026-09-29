@@ -1,22 +1,48 @@
-{% extends "base.html" %}
-{% block title %}Producto | Vshein{% endblock %}
-{% block content %}
-<main class="page-shell admin-shell">
-  <section class="section">
-    <div class="section-head reveal">
-      <p class="eyebrow">{{ 'Editar' if product else 'Nuevo' }} producto</p>
-      <h1>{{ 'Editar' if product else 'Crear' }} producto</h1>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ 'Editar' if product else 'Nuevo' }} producto · Miss Lindas</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/marca/logo-sv.png') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin.css') }}">
+</head>
+<body>
+
+<div class="login-gate">
+  <div class="modal" style="width:min(560px,100%)">
+    <div class="modal-head">
+      <h3>{{ 'Editar' if product else 'Nuevo' }} producto</h3>
+      <a class="modal-close" href="{{ url_for('admin.dashboard') }}" aria-label="Volver">✕</a>
     </div>
 
-    <form method="post" class="form-grid reveal">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <p class="form-error">⚠ {{ message }}</p>
+      {% endfor %}
+    {% endwith %}
+
+    <form method="post" enctype="multipart/form-data">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <label>
-        Nombre
-        <input type="text" name="name" value="{{ product.name if product else '' }}" required>
+        Nombre del producto
+        <input type="text" name="name" value="{{ product.name if product else '' }}" required maxlength="140" placeholder="Ej. Vestido Satinado «Aura»">
       </label>
       <label>
-        Categoria
+        Foto del producto
+        <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp">
+      </label>
+      {% set current_image = product.media_items|selectattr('media_type', 'equalto', 'image')|first if product else None %}
+      {% if current_image %}
+        <img src="{{ url_for('static', filename=current_image.file_path) }}" alt="Foto actual" style="width:100%;max-width:220px;border-radius:12px;margin:-.3rem 0 .6rem">
+      {% endif %}
+      <label>
+        Categoría
         <select name="category_id" required>
-          <option value="">Selecciona</option>
+          <option value="">Selecciona una categoría</option>
           {% for category in categories %}
             <option value="{{ category.id }}" {% if product and product.category_id == category.id %}selected{% endif %}>
               {{ category.name }}
@@ -24,36 +50,39 @@
           {% endfor %}
         </select>
       </label>
-      <label class="full-width">
-        Descripcion
-        <textarea name="description" rows="5" required>{{ product.description if product else '' }}</textarea>
-      </label>
       <label>
-        Stock
-        <input type="number" name="stock" min="0" value="{{ product.stock if product else 0 }}">
+        Descripción
+        <textarea name="description" rows="4" required style="padding:.7rem .9rem;border:1.5px solid var(--line);border-radius:11px;font:inherit;color:var(--ink);background:#FFFDFA;resize:vertical">{{ product.description if product else '' }}</textarea>
       </label>
-      <label>
-        Vendidos
-        <input type="number" name="sold_count" min="0" value="{{ product.sold_count if product else 0 }}">
+      <div class="form-row">
+        <label>
+          Stock
+          <input type="number" name="stock" min="0" max="999999" value="{{ product.stock if product else 0 }}">
+        </label>
+        <label>
+          Vendidos
+          <input type="number" name="sold_count" min="0" max="999999" value="{{ product.sold_count if product else 0 }}">
+        </label>
+        <label>
+          Alerta stock
+          <input type="number" name="low_stock_threshold" min="0" max="999" value="{{ product.low_stock_threshold if product else 5 }}">
+        </label>
+      </div>
+      <label style="display:flex;align-items:center;gap:.5rem;flex-direction:row">
+        <input type="checkbox" name="featured" style="width:auto" {% if product and product.featured %}checked{% endif %}>
+        Destacado en landing
       </label>
-      <label>
-        Alerta de stock
-        <input type="number" name="low_stock_threshold" min="0" value="{{ product.low_stock_threshold if product else 5 }}">
+      <label style="display:flex;align-items:center;gap:.5rem;flex-direction:row">
+        <input type="checkbox" name="is_active" style="width:auto" {% if not product or product.is_active %}checked{% endif %}>
+        Activo (visible en el inventario)
       </label>
-      <label class="checkbox">
-        <input type="checkbox" name="featured" {% if product and product.featured %}checked{% endif %}>
-        Destacado
-      </label>
-      <label class="checkbox">
-        <input type="checkbox" name="is_active" {% if not product or product.is_active %}checked{% endif %}>
-        Activo
-      </label>
-      <div class="form-actions full-width">
-        <button class="btn btn-primary" type="submit">Guardar</button>
-        <a class="btn btn-secondary" href="{{ url_for('admin.dashboard') }}">Cancelar</a>
+      <div class="modal-actions">
+        <a class="btn-ghost" href="{{ url_for('admin.dashboard') }}" style="text-decoration:none;display:inline-flex;align-items:center">Cancelar</a>
+        <button type="submit" class="btn-save">Guardar producto</button>
       </div>
     </form>
-  </section>
-</main>
-{% endblock %}
+  </div>
+</div>
 
+</body>
+</html>

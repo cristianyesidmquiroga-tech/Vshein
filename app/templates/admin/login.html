@@ -3,28 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ingresar | Vshein</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <title>Ingresar · Miss Lindas</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/marca/logo-sv.png') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin.css') }}">
 </head>
-<body class="auth-body">
-  <main class="auth-card reveal">
-    <p class="eyebrow">Acceso administrativo</p>
-    <h1>Iniciar sesion</h1>
-    <p>Usa tu cuenta de empleado o administrador.</p>
-    <form method="post" class="auth-form">
-      <label>
-        Correo
-        <input type="email" name="email" placeholder="admin@vshein.local" required>
-      </label>
-      <label>
-        Contrasena
-        <input type="password" name="password" placeholder="Admin123!" required>
-      </label>
-      <button class="btn btn-primary" type="submit">Entrar</button>
-    </form>
-    <a class="back-link" href="{{ url_for('main.index') }}">Volver a la landing</a>
-  </main>
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<body>
+
+<div class="login-gate">
+  <form class="login-card" method="post" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <span class="login-badge"><img src="{{ url_for('static', filename='img/marca/logo-sv.png') }}" alt="SV"></span>
+    <h1>Acceso administrativo</h1>
+    <p class="login-sub">Panel privado · Miss Lindas</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <p class="login-error">⚠ {{ message }}</p>
+      {% endfor %}
+    {% endwith %}
+
+    <label>
+      Correo
+      <input type="email" name="email" placeholder="admin@misslindas.local" required autocomplete="username" maxlength="120">
+    </label>
+    <label>
+      Contraseña
+      <input type="password" name="password" placeholder="••••••••" required autocomplete="current-password" maxlength="128">
+    </label>
+
+    <button class="btn-login" type="submit">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      Entrar al panel
+    </button>
+    <p class="login-sec">🔒 Contraseñas con hash (Werkzeug PBKDF2) y sesiones seguras de Flask.</p>
+    <p class="login-sec"><a href="{{ url_for('main.index') }}">← Volver a la landing</a></p>
+  </form>
+</div>
+
 </body>
 </html>
-

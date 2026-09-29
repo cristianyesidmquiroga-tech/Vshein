@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Cambios y Devoluciones | Miss Lindas{% endblock %}
+
+{% block content %}
+<main class="page-shell">
+  <div class="legal-page section-alt">
+    <h1>Cambios y Devoluciones</h1>
+    <p><strong>Última actualización:</strong> Septiembre de 2026</p>
+
+    <div class="legal-content">
+      <p>Como se indica en nuestros <a href="{{ url_for('main.terminos') }}">Términos de Servicio</a>, este sitio web funciona como catálogo virtual: la compra se concreta directamente con nosotros por WhatsApp, Instagram o en nuestro showroom en Vélez, Santander. Esta política explica cómo manejamos los cambios y devoluciones sobre esas compras.</p>
+
+      <h2>1. Garantía legal</h2>
+      <p>Toda prenda o accesorio que vendemos cuenta con la garantía legal establecida en la Ley 1480 de 2011 (Estatuto del Consumidor). Si la prenda presenta una falla de fábrica (costura, cierre, tela, talla distinta a la exhibida), la cambiamos sin costo dentro de los términos de dicha garantía, presentando el comprobante de compra o la conversación donde se confirmó el pedido.</p>
+
+      <h2>2. Cambios por talla o gusto</h2>
+      <p>Además de la garantía legal, aceptamos cambios por talla o cambio de parecer dentro de los <strong>5 días calendario</strong> siguientes a la entrega, siempre que la prenda:</p>
+      <ul>
+        <li>No haya sido usada ni lavada.</li>
+        <li>Conserve las etiquetas originales.</li>
+        <li>No presente maquillaje, perfume, mal olor ni señales de uso.</li>
+      </ul>
+      <p>Los cambios se hacen por otra prenda de igual o mayor valor (pagando la diferencia) o por un vale para una compra futura. Por higiene, los accesorios de uso íntimo y las medias no tienen cambio salvo falla de fábrica.</p>
+
+      <h2>3. Derecho de retracto en compras a distancia</h2>
+      <p>Si su compra se concretó y pagó completamente a distancia (por ejemplo, transferencia y envío, sin haber visto la prenda en el showroom), aplica el derecho de retracto del artículo 47 de la Ley 1480 de 2011: usted puede desistir de la compra dentro de los <strong>5 días hábiles</strong> siguientes a la entrega, sin necesidad de justificar el motivo, devolviendo la prenda en las mismas condiciones en que la recibió.</p>
+
+      <h2>4. Cómo solicitar un cambio o devolución</h2>
+      <p>Escríbanos por nuestro WhatsApp de atención indicando el número de pedido o la fecha aproximada de la compra. Le confirmaremos si el cambio se recibe en el showroom o si debe enviarse por su cuenta a nuestra dirección.</p>
+
+      <h2>5. Costos de envío</h2>
+      <p>Si el cambio se debe a una falla nuestra (talla equivocada al despachar, prenda defectuosa), asumimos el costo del envío de cambio. Si el cambio es por decisión suya (talla o gusto), el costo de envío corre por su cuenta.</p>
+
+      <h2>6. Reembolsos en dinero</h2>
+      <p>Fuera de los casos cubiertos por la garantía legal o el derecho de retracto, no manejamos reembolsos en efectivo o a la cuenta de origen: los cambios por talla o gusto se resuelven con otra prenda o un vale.</p>
+    </div>
+  </div>
+</main>
+{% endblock %}

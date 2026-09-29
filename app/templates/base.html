@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Vshein{% endblock %}</title>
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <title>{% block title %}Miss Lindas{% endblock %}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/marca/logo-sv.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site/footer.css') }}">
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="{{ url_for('main.index') }}">
-      <img class="brand-logo" src="{{ url_for('static', filename='img/logo.png') }}" alt="Shein Vélez Logo">
-      <span>Shein Vélez</span>
+      <img class="brand-logo" src="{{ url_for('static', filename='img/marca/logo-sv.png') }}" alt="Miss Lindas Logo">
+      <span>Miss Lindas</span>
     </a>
     <button class="menu-toggle" type="button" aria-label="Abrir menu" data-menu-toggle>Menu</button>
     <nav class="nav" data-nav>
       <a href="{{ url_for('main.index') }}#inicio">Inicio</a>
-      <a href="{{ url_for('main.index') }}#productos">Productos</a>
-      <a href="{{ url_for('main.index') }}#quienes-somos">Quienes somos</a>
-      <a href="{{ url_for('main.index') }}#contacto">Contactanos</a>
-      <a href="{{ url_for('admin.dashboard') }}">Administracion</a>
+      <a href="{{ url_for('main.index') }}#ropa">Ropa</a>
+      <a href="{{ url_for('main.index') }}#accesorios">Accesorios</a>
+      <a href="{{ url_for('main.index') }}#contacto">Contacto</a>
     </nav>
   </header>
 
@@ -35,7 +35,9 @@
 
   {% block content %}{% endblock %}
 
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% include "landing/_footer.html" %}
+
+  <script src="{{ url_for('static', filename='js/site/main.js') }}"></script>
 </body>
 </html>
 

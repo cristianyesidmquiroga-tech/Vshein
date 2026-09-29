@@ -1,154 +1,182 @@
-{% extends "base.html" %}
-{% block title %}Shein Velez | Inicio{% endblock %}
-{% block content %}
-<main class="page-shell">
-  <section id="inicio" class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content reveal">
-      <p class="eyebrow">Moda femenina con identidad</p>
-      <h1>Glamour a tu alcance</h1>
-      <p class="hero-copy">
-        Una landing pensada para mostrar prendas, videos, redes y estilo sin carrito ni pagos,
-        con una experiencia mobile first y movimiento suave al hacer scroll.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#productos">Ver productos</a>
-        <a class="btn btn-secondary" href="#contacto">Contactanos</a>
-      </div>
-      <div class="hero-badges">
-        <span>Imagenes</span>
-        <span>Videos</span>
-        <span>Responsive</span>
-        <span>Admin</span>
-      </div>
-    </div>
-  </section>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Miss Lindas · Boutique femenina. Ropa y accesorios seleccionados. Glamour a tu alcance.">
+  <title>Miss Lindas · Boutique | Glamour a tu alcance</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/marca/logo-sv.png') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site/landing.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site/footer.css') }}">
+</head>
+<body>
+{% from "landing/_product_card.html" import product_card %}
 
-  <section id="productos" class="section">
-    <div class="section-head reveal">
-      <p class="eyebrow">Productos</p>
-      <h2>Vitrina visual de la tienda</h2>
-      <p>
-        Aqui puedes mostrar fotos y clips de cada prenda con una breve descripcion.
-      </p>
-    </div>
+  <header class="topbar">
+    <a class="brand" href="#inicio">
+      <span class="brand-badge"><img src="{{ url_for('static', filename='img/marca/logo-sv.png') }}" alt="SV"></span>
+      <span class="brand-name">Miss <em>Lindas</em></span>
+    </a>
+    <nav class="topnav">
+      <a href="#inicio" data-spy="inicio">Inicio</a>
+      <a href="#ropa" data-spy="ropa">Ropa</a>
+      <a href="#accesorios" data-spy="accesorios">Accesorios</a>
+      <a href="#contacto" data-spy="contacto">Contacto</a>
+    </nav>
+  </header>
 
-    <div class="category-strip reveal">
-      <span>Blusas</span>
-      <span>Vestidos</span>
-      <span>Pantalones</span>
-      <span>Faldas</span>
-      <span>Accesorios</span>
-      <span>Joyería</span>
-    </div>
+  <main>
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+      <div class="hero-blob blob-rose"></div>
+      <div class="hero-blob blob-gold"></div>
+      <div class="hero-blob blob-lilac"></div>
 
-    <div class="product-grid">
-      <article class="product-card reveal">
-        <div class="product-media">
-          <div class="product-placeholder">Prenda Destacada 1</div>
-        </div>
-        <div class="product-body">
-          <p class="product-category">Vestidos</p>
-          <h3>Vestido Elegante de Noche</h3>
-          <p>Diseño exclusivo para ocasiones especiales con acabados de alta calidad.</p>
-        </div>
-      </article>
-      <article class="product-card reveal">
-        <div class="product-media">
-          <div class="product-placeholder">Prenda Destacada 2</div>
-        </div>
-        <div class="product-body">
-          <p class="product-category">Blusas</p>
-          <h3>Blusa Estilo Ejecutivo</h3>
-          <p>Frescura, frescura y sofisticación para un look versátil de día o noche.</p>
-        </div>
-      </article>
-      <article class="product-card reveal">
-        <div class="product-media">
-          <div class="product-placeholder">Prenda Destacada 3</div>
-        </div>
-        <div class="product-body">
-          <p class="product-category">Accesorios</p>
-          <h3>Bolso de Mano Chic</h3>
-          <p>El complemento perfecto para resaltar cualquier outfit.</p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section id="quienes-somos" class="section section-alt">
-    <div class="split reveal">
-      <div>
-        <p class="eyebrow">Quienes somos</p>
-        <h2>Una tienda creada para destacar estilo y confianza</h2>
-        <p>
-          Esta seccion puede contar la historia de la marca, el tipo de clienta a la que se
-          dirige y la propuesta visual de la tienda.
+      <div class="hero-inner">
+        <p class="eyebrow reveal">Boutique femenina · Vélez, Santander</p>
+        <h1 class="reveal">Glamour<br><span>a tu alcance</span></h1>
+        <p class="hero-copy reveal">
+          Ropa y accesorios seleccionados que enamoran.
+          Descubre la colección y pídela directo por WhatsApp.
         </p>
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href="#ropa">Ver la colección</a>
+          <a class="btn btn-whatsapp" data-social="whatsapp" target="_blank" rel="noopener"
+             href="https://wa.me/573125615080?text=Hola%20Miss%20Lindas%2C%20quiero%20conocer%20la%20colecci%C3%B3n%20%F0%9F%92%95">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp directo
+          </a>
+        </div>
+        <div class="hero-proof reveal">
+          <span>✦ Prendas de importación</span>
+          <span>✦ Envíos a todo el país</span>
+        </div>
       </div>
-      <div class="info-panel">
-        <h3>Enfoque</h3>
-        <ul>
-          <li>Prendas femeninas seleccionadas</li>
-          <li>Contenido visual con fotos y video</li>
-          <li>Experiencia limpia y rapida en celular</li>
-        </ul>
+
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Ropa femenina ✦ Accesorios ✦ Medias ✦ Nuevas colecciones cada mes ✦ Pedidos por WhatsApp ✦&nbsp;</span>
+        <span>Ropa femenina ✦ Accesorios ✦ Medias ✦ Nuevas colecciones cada mes ✦ Pedidos por WhatsApp ✦&nbsp;</span>
       </div>
-    </div>
-  </section>
-
-  <section id="contacto" class="section">
-    <div class="section-head reveal">
-      <p class="eyebrow">Contactanos</p>
-      <h2>Redes y canales directos</h2>
-    </div>
-
-    <div class="contact-grid">
-      <a href="https://www.instagram.com/shein_velez?igsh=cGl2dHZtdjFiamQz" target="_blank" rel="noopener noreferrer" class="contact-card reveal contact-link">
-        <h3>Instagram</h3>
-        <p>@shein_velez</p>
-      </a>
-      <a href="https://www.facebook.com/share/18rrCCD2hX/" target="_blank" rel="noopener noreferrer" class="contact-card reveal contact-link">
-        <h3>Facebook</h3>
-        <p>Shein Vélez Y Miss Lindas</p>
-      </a>
-      <a href="https://wa.me/573125615080?text=Hola,%20quisiera%20recibir%20información%20de%20sus%20prendas" target="_blank" rel="noopener noreferrer" class="contact-card reveal contact-link">
-        <h3>WhatsApp</h3>
-        <p>+57 312 561 5080</p>
-      </a>
     </div>
 
-    <div class="map-container reveal">
-      <div class="map-header">
-        <h3>Ubicación de nuestro local</h3>
-        <p>Calle 9 # 3-86, Vélez, Santander, Colombia</p>
-      </div>
-      <div class="map-wrapper">
-        <iframe
-          title="Ubicación de Shein Velez"
-          src="https://maps.google.com/maps?q=6.012944969717085,-73.6729699674148&hl=es&z=19&output=embed"
-          width="100%"
-          height="450"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
-    </div>
-  </section>
+    <!-- LOOKBOOK (lo renderiza landing.js) -->
+    <section id="coleccion" class="collection-intro">
+      <p class="eyebrow reveal">La colección</p>
+      <h2 class="reveal">Piezas que cuentan<br>tu historia</h2>
+      <p class="reveal">Sin carrito ni filas: mira, enamórate y escríbenos. Cada pieza es de stock limitado.</p>
+    </section>
 
-  <footer class="site-footer">
-    <div class="footer-grid">
-      <div>
-        <h3>Shein Velez</h3>
-        <p>Moda femenina con una presencia visual elegante y llamativa.</p>
+    <section id="ropa" class="look-section" data-category="ropa">
+      <header class="look-head">
+        <p class="eyebrow reveal">01 · Ropa</p>
+        <h2 class="reveal">Vístete de ti misma</h2>
+        <p class="reveal" style="color:var(--ink-soft);margin-top:.6rem">Toca una categoría y descubre tus favoritas 👇</p>
+      </header>
+      <div class="submenu" data-submenu>
+        <button type="button" data-sub="todos" class="active">Todo</button>
+        {% for category in ropa_categories %}
+          <button type="button" data-sub="{{ category.slug }}">{{ category.name }}</button>
+        {% endfor %}
       </div>
-      <div>
-        <h3>Politicas</h3>
-        <p>Politica de privacidad, terminos y condiciones, tratamiento de datos y demas textos legales de acuerdo con Colombia.</p>
+      <div class="look-feed" data-feed="ropa">
+        {% if ropa_products %}
+          {% for product in ropa_products %}{{ product_card(product, loop.index0) }}{% endfor %}
+        {% else %}
+          <p class="feed-empty">Pronto nuevas piezas ✨</p>
+        {% endif %}
       </div>
-    </div>
-  </footer>
-</main>
-{% endblock %}
+    </section>
+
+    <section id="accesorios" class="look-section look-section--gold" data-category="accesorios">
+      <header class="look-head">
+        <p class="eyebrow reveal">02 · Accesorios</p>
+        <h2 class="reveal">El detalle que<br>completa tu look</h2>
+      </header>
+      <div class="look-feed" data-feed="accesorios">
+        {% if accesorios_products %}
+          {% for product in accesorios_products %}{{ product_card(product, loop.index0) }}{% endfor %}
+        {% else %}
+          <p class="feed-empty">Pronto nuevas piezas ✨</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="contact">
+      <div class="contact-inner">
+        <p class="eyebrow reveal">Hablemos</p>
+        <h2 class="reveal">¿Viste algo que te enamoró?</h2>
+        <p class="reveal">Escríbenos por tu canal favorito. Respondemos rapidito y apartamos tu prenda.</p>
+
+        <div class="social-cards">
+          <a class="social-card social-whatsapp reveal" data-social="whatsapp" target="_blank" rel="noopener"
+             href="https://wa.me/573125615080?text=Hola%20Miss%20Lindas%2C%20quiero%20hacer%20un%20pedido%20%F0%9F%9B%8D%EF%B8%8F">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span class="social-name">WhatsApp</span>
+            <span class="social-handle">+57 312 561 5080</span>
+            <span class="social-cta">Pedir ahora →</span>
+          </a>
+
+          <a class="social-card social-instagram reveal" data-social="instagram" target="_blank" rel="noopener"
+             href="https://www.instagram.com/shein_velez">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.6" cy="6.4" r="1.4" fill="currentColor" stroke="none"/></svg>
+            <span class="social-name">Instagram</span>
+            <span class="social-handle">Miss Lindas</span>
+            <span class="social-cta">Síguenos →</span>
+          </a>
+
+          <a class="social-card social-facebook reveal" data-social="facebook" target="_blank" rel="noopener"
+             href="https://www.facebook.com/share/18rrCCD2hX/">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span class="social-name">Facebook</span>
+            <span class="social-handle">Miss Lindas</span>
+            <span class="social-cta">Visítanos →</span>
+          </a>
+        </div>
+
+        <p class="contact-address reveal">📍 Calle 9 # 3-86 · Vélez, Santander, Colombia</p>
+      </div>
+    </section>
+  </main>
+
+  {% include "landing/_footer.html" %}
+
+  <a class="fab-whatsapp" data-social="whatsapp" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"
+     href="https://wa.me/573125615080?text=Hola%20Miss%20Lindas%2C%20tengo%20una%20duda%20%F0%9F%98%8A">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- Visor de prenda (lightbox con fondo difuminado) -->
+  <div class="pmodal" data-pmodal hidden>
+    <div class="pmodal-backdrop" data-pmodal-close></div>
+    <article class="pmodal-card" role="dialog" aria-modal="true" aria-label="Detalle de la prenda">
+      <button class="pmodal-back" type="button" data-pmodal-close aria-label="Volver">← Volver</button>
+      <button class="pmodal-close" type="button" data-pmodal-close aria-label="Cerrar">✕</button>
+      <div class="pmodal-media" data-pmodal-media></div>
+      <div class="pmodal-body">
+        <p class="look-cat" data-pmodal-cat></p>
+        <h3 class="look-name" data-pmodal-name></h3>
+        <span class="look-tag" data-pmodal-tag hidden></span>
+        <p class="pmodal-desc" data-pmodal-desc></p>
+        <p class="proof-live"><span class="proof-dot"></span><span data-pmodal-viewers></span></p>
+        <a class="look-cta" data-pmodal-cta data-social="whatsapp" target="_blank" rel="noopener" href="#">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Me encantó · WhatsApp
+        </a>
+      </div>
+    </article>
+  </div>
+
+  <aside class="proof" data-proof aria-live="polite"></aside>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <script src="{{ url_for('static', filename='js/site/landing.js') }}"></script>
+</body>
+</html>

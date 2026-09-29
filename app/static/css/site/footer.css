@@ -1,0 +1,119 @@
+:root {
+  --footer-bg: #2A1E1B;
+  --footer-text: #F3E7DC;
+  --footer-text-soft: #C9B6AC;
+  --footer-line: rgba(255, 255, 255, .1);
+  --footer-accent: #B95F82;
+}
+
+.site-footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+}
+
+.site-footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 2rem;
+}
+
+.site-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.4rem;
+  padding-bottom: 2.4rem;
+  border-bottom: 1px solid var(--footer-line);
+}
+
+@media (min-width: 720px) {
+  .site-footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1000px) {
+  .site-footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+}
+
+.site-footer-brand {
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 1.3rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--footer-text);
+}
+
+.site-footer-tagline {
+  margin-top: .6rem;
+  font-size: .82rem;
+  color: var(--footer-text-soft);
+  max-width: 26rem;
+  line-height: 1.6;
+}
+
+.site-footer-heading {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--footer-text);
+  margin-bottom: .9rem;
+}
+
+.site-footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+}
+
+.site-footer-links a {
+  font-size: .82rem;
+  color: var(--footer-text-soft);
+  transition: color .15s ease;
+}
+
+.site-footer-links a:hover,
+.site-footer-links a:focus-visible {
+  color: var(--footer-text);
+}
+
+.site-footer-team a {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  opacity: .65;
+}
+
+.site-footer-team a:hover,
+.site-footer-team a:focus-visible {
+  opacity: 1;
+  color: var(--footer-accent);
+}
+
+.site-footer-team svg { width: 14px; height: 14px; }
+
+.site-footer-social {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.site-footer-social a {
+  color: var(--footer-text-soft);
+  transition: color .15s ease;
+}
+
+.site-footer-social a:hover,
+.site-footer-social a:focus-visible {
+  color: var(--footer-text);
+}
+
+.site-footer-social svg { width: 20px; height: 20px; }
+
+.site-footer-bottom {
+  padding-top: 1.6rem;
+  font-size: .76rem;
+  color: var(--footer-text-soft);
+  text-align: center;
+}

@@ -5,10 +5,15 @@ from flask_login import current_user, login_required
 
 from ..bootstrap import unique_slug
 from ..extensions import db
-from ..models import Category, InventoryMovement, Product
+from ..models import Category, InventoryMovement, Product, ProductMedia
+from ..uploads import InvalidImageError, save_product_image
 
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
+
+MAX_NAME_LENGTH = 140
+MAX_DESCRIPTION_LENGTH = 2000
+MAX_QUANTITY = 999_999
 
 
 def admin_or_empleado_required() -> None:
@@ -16,6 +21,39 @@ def admin_or_empleado_required() -> None:
         abort(401)
     if current_user.role not in {"admin", "empleado"}:
         abort(403)
+
+
+def _clamp_quantity(raw: int | None, default: int = 0) -> int:
+    value = raw if raw is not None else default
+    return max(0, min(value, MAX_QUANTITY))
+
+
+def _validate_product_fields(name: str, description: str, category_id: int | None) -> str | None:
+    if not name or len(name) > MAX_NAME_LENGTH:
+        return f"El nombre es obligatorio y debe tener maximo {MAX_NAME_LENGTH} caracteres."
+    if not description or len(description) > MAX_DESCRIPTION_LENGTH:
+        return f"La descripcion es obligatoria y debe tener maximo {MAX_DESCRIPTION_LENGTH} caracteres."
+    if not category_id or not db.session.get(Category, category_id):
+        return "Selecciona una categoria valida."
+    return None
+
+
+def _handle_image_upload(product: Product) -> str | None:
+    """Guarda la foto subida para el producto. Devuelve un mensaje de error o None."""
+    file_storage = request.files.get("image")
+    if not file_storage or not file_storage.filename:
+        return None
+
+    try:
+        relative_path = save_product_image(file_storage)
+    except InvalidImageError as exc:
+        return str(exc)
+
+    ProductMedia.query.filter_by(product_id=product.id, media_type="image").delete()
+    db.session.add(
+        ProductMedia(product_id=product.id, media_type="image", file_path=relative_path, sort_order=1)
+    )
+    return None
 
 
 @admin_bp.route("/")
@@ -62,13 +100,14 @@ def product_create():
         name = request.form.get("name", "").strip()
         description = request.form.get("description", "").strip()
         category_id = request.form.get("category_id", type=int)
-        stock = request.form.get("stock", type=int)
-        sold_count = request.form.get("sold_count", type=int)
+        stock = _clamp_quantity(request.form.get("stock", type=int))
+        sold_count = _clamp_quantity(request.form.get("sold_count", type=int))
         featured = bool(request.form.get("featured"))
         is_active = bool(request.form.get("is_active", True))
 
-        if not name or not description or not category_id:
-            flash("Completa los campos obligatorios.", "error")
+        error = _validate_product_fields(name, description, category_id)
+        if error:
+            flash(error, "error")
             return render_template("admin/product_form.html", categories=categories, product=None)
 
         product = Product(
@@ -76,12 +115,20 @@ def product_create():
             slug=unique_slug(Product, name),
             description=description,
             category_id=category_id,
-            stock=stock or 0,
-            sold_count=sold_count or 0,
+            stock=stock,
+            sold_count=sold_count,
             featured=featured,
             is_active=is_active,
         )
         db.session.add(product)
+        db.session.flush()
+
+        image_error = _handle_image_upload(product)
+        if image_error:
+            db.session.rollback()
+            flash(image_error, "error")
+            return render_template("admin/product_form.html", categories=categories, product=None)
+
         db.session.commit()
         flash("Producto creado.", "success")
         return redirect(url_for("admin.dashboard"))
@@ -100,15 +147,31 @@ def product_edit(product_id: int):
     categories = Category.query.order_by(Category.name.asc()).all()
 
     if request.method == "POST":
-        product.name = request.form.get("name", "").strip()
-        product.slug = unique_slug(Product, product.name, exclude_id=product.id)
-        product.description = request.form.get("description", "").strip()
-        product.category_id = request.form.get("category_id", type=int)
-        product.stock = request.form.get("stock", type=int) or 0
-        product.sold_count = request.form.get("sold_count", type=int) or 0
-        product.low_stock_threshold = request.form.get("low_stock_threshold", type=int) or 5
+        name = request.form.get("name", "").strip()
+        description = request.form.get("description", "").strip()
+        category_id = request.form.get("category_id", type=int)
+
+        error = _validate_product_fields(name, description, category_id)
+        if error:
+            flash(error, "error")
+            return render_template("admin/product_form.html", categories=categories, product=product)
+
+        product.name = name
+        product.slug = unique_slug(Product, name, exclude_id=product.id)
+        product.description = description
+        product.category_id = category_id
+        product.stock = _clamp_quantity(request.form.get("stock", type=int))
+        product.sold_count = _clamp_quantity(request.form.get("sold_count", type=int))
+        product.low_stock_threshold = _clamp_quantity(request.form.get("low_stock_threshold", type=int), default=5)
         product.featured = bool(request.form.get("featured"))
         product.is_active = bool(request.form.get("is_active", True))
+
+        image_error = _handle_image_upload(product)
+        if image_error:
+            db.session.rollback()
+            flash(image_error, "error")
+            return render_template("admin/product_form.html", categories=categories, product=product)
+
         db.session.commit()
         flash("Producto actualizado.", "success")
         return redirect(url_for("admin.dashboard"))

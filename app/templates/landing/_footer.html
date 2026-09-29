@@ -1,0 +1,49 @@
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-grid">
+      <div>
+        <span class="site-footer-brand">Miss Lindas</span>
+        <p class="site-footer-tagline">Glamour a tu alcance. Ropa y accesorios seleccionados en Vélez, Santander.</p>
+      </div>
+
+      <div>
+        <span class="site-footer-heading">Atelier &amp; Legal</span>
+        <ul class="site-footer-links">
+          <li><a href="{{ url_for('main.privacidad') }}">Política de Privacidad</a></li>
+          <li><a href="{{ url_for('main.terminos') }}">Términos de Servicio</a></li>
+          <li><a href="{{ url_for('main.cambios_devoluciones') }}">Cambios y Devoluciones</a></li>
+          <li><a href="{{ url_for('main.cookies') }}">Política de Cookies</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="site-footer-heading">Atención al Cliente</span>
+        <ul class="site-footer-links">
+          <li>
+            <a href="https://wa.me/573125615080?text=Hola%20Miss%20Lindas%2C%20quiero%20hacer%20un%20pedido%20%F0%9F%9B%8D%EF%B8%8F" target="_blank" rel="noopener noreferrer">WhatsApp Concierge</a>
+          </li>
+          <li class="site-footer-team">
+            <a href="{{ url_for('auth.login') }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>Acceso de Equipo</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="site-footer-heading">Redes</span>
+        <div class="site-footer-social">
+          <a href="https://www.instagram.com/shein_velez" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Miss Lindas">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.6" cy="6.4" r="1.4" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/share/18rrCCD2hX/" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Miss Lindas">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <p class="site-footer-bottom">© {{ current_year }} Miss Lindas. Todos los derechos reservados.</p>
+  </div>
+</footer>

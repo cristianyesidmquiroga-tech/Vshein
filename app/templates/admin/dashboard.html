@@ -1,115 +1,212 @@
-{% extends "base.html" %}
-{% block title %}Panel | Vshein{% endblock %}
-{% block content %}
-<main class="page-shell admin-shell">
-  <section class="admin-hero reveal">
-    <div>
-      <p class="eyebrow">Panel de control</p>
-      <h1>Inventario, alertas y productos mas vendidos</h1>
-      <p>
-        Vista base para empleados y administradores, con filtros por categoria, CRUD y
-        alertas de stock.
-      </p>
-    </div>
-    <div class="admin-cards">
-      <article>
-        <span>Stock total</span>
-        <strong>{{ total_stock }}</strong>
-      </article>
-      <article>
-        <span>Productos activos</span>
-        <strong>{{ products|length }}</strong>
-      </article>
-      <article>
-        <span>Alertas</span>
-        <strong>{{ low_stock|length }}</strong>
-      </article>
-    </div>
-  </section>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · Miss Lindas</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/marca/logo-sv.png') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin.css') }}">
+</head>
+<body>
 
-  <section class="section admin-section">
-    <div class="admin-toolbar reveal">
-      <form class="filter-form" method="get">
-        <input type="search" name="search" value="{{ search }}" placeholder="Buscar producto">
-        <select name="category">
-          <option value="">Todas las categorias</option>
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a class="side-brand" href="{{ url_for('admin.dashboard') }}">
+      <span class="side-badge"><img src="{{ url_for('static', filename='img/marca/logo-sv.png') }}" alt="SV"></span>
+      <span>
+        <strong>Miss Lindas</strong>
+        <small>Panel administrativo</small>
+      </span>
+    </a>
+
+    <nav class="side-nav">
+      <a href="{{ url_for('admin.dashboard') }}" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        Dashboard
+        {% if low_stock %}<span class="side-alert-dot">{{ low_stock|length }}</span>{% endif %}
+      </a>
+      <a href="{{ url_for('admin.product_create') }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        Nuevo producto
+      </a>
+    </nav>
+
+    <div class="side-footer">
+      <a class="side-link" href="{{ url_for('main.index') }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        Ver landing page
+      </a>
+      <a class="side-link side-logout" href="{{ url_for('auth.logout') }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+        Cerrar sesión
+      </a>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div>
+        <h1>Dashboard</h1>
+        <p class="topbar-date" data-today></p>
+      </div>
+      <div class="admin-user">
+        <span class="admin-avatar">{{ current_user.name[:1] }}</span>
+        <span>
+          <strong>{{ current_user.name }}</strong>
+          <small>{{ current_user.role|capitalize }}</small>
+        </span>
+      </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="alerts-strip">
+          {% for category, message in messages %}
+            <span class="strip-badge {{ 'strip-danger' if category == 'error' else 'strip-warning' }}">{{ message }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Frase del día + KPIs -->
+    <div class="dash-top">
+      <article class="quote-card">
+        <span class="quote-mark">“</span>
+        <p class="quote-text" data-quote-text></p>
+        <p class="quote-meta">Frase del día · <span data-quote-date></span></p>
+      </article>
+
+      <div class="kpi-grid">
+        <article class="kpi-card">
+          <span class="kpi-icon">👗</span>
+          <span><strong>{{ products|length }}</strong><small>Productos activos</small></span>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-icon">📦</span>
+          <span><strong>{{ total_stock }}</strong><small>Unidades en stock</small></span>
+        </article>
+        <article class="kpi-card {{ 'kpi-warn' if low_stock }}">
+          <span class="kpi-icon">⚠️</span>
+          <span><strong>{{ low_stock|length }}</strong><small>Alertas de stock</small></span>
+        </article>
+      </div>
+    </div>
+
+    <div class="dash-panels">
+      <article class="panel">
+        <div class="panel-head"><h3>🏆 Top 5 más vendidos</h3></div>
+        <ul class="rank-list">
+          {% for product in most_sold %}
+            <li>
+              <span class="rank-pos">{{ loop.index }}</span>
+              <span class="rank-name">{{ product.name }}</span>
+              <strong>{{ product.sold_count }}</strong>
+            </li>
+          {% else %}
+            <li><span class="rank-name">Sin ventas registradas aún.</span></li>
+          {% endfor %}
+        </ul>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head"><h3>⚠️ Alertas de stock</h3></div>
+        <ul class="alert-list">
+          {% for product in low_stock %}
+            <li class="alert {{ 'danger' if product.stock <= 2 else 'warning' }}">
+              <strong>{{ product.name }}</strong>
+              {% if product.stock == 0 %}
+                <span>¡Agotado! 0 unidades en inventario</span>
+              {% elif product.stock <= 2 %}
+                <span>¡Alerta! Solo quedan {{ product.stock }} unidades</span>
+              {% else %}
+                <span>Bajo: quedan {{ product.stock }} unidades</span>
+              {% endif %}
+            </li>
+          {% else %}
+            <li class="alert ok"><strong>Todo el inventario está saludable 🎉</strong></li>
+          {% endfor %}
+        </ul>
+      </article>
+    </div>
+
+    <!-- Inventario -->
+    <div class="toolbar" style="margin-top:1.2rem">
+      <form class="search-box" method="get" action="{{ url_for('admin.dashboard') }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" name="search" value="{{ search }}" placeholder="Buscar producto por nombre…" maxlength="40">
+      </form>
+      <form method="get" action="{{ url_for('admin.dashboard') }}">
+        <input type="hidden" name="search" value="{{ search }}">
+        <select name="category" onchange="this.form.submit()">
+          <option value="">Todas las categorías</option>
           {% for category in categories %}
             <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>
               {{ category.name }}
             </option>
           {% endfor %}
         </select>
-        <button class="btn btn-secondary" type="submit">Filtrar</button>
       </form>
-      <a class="btn btn-primary" href="{{ url_for('admin.product_create') }}">Nuevo producto</a>
+      <a class="btn-new" href="{{ url_for('admin.product_create') }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Nuevo producto
+      </a>
     </div>
 
-    <div class="dashboard-grid">
-      <article class="panel reveal">
-        <h3>Mas vendidos</h3>
-        <ul class="stat-list">
-          {% for product in most_sold %}
-            <li>
-              <span>{{ product.name }}</span>
-              <strong>{{ product.sold_count }}</strong>
-            </li>
-          {% endfor %}
-        </ul>
-      </article>
-
-      <article class="panel reveal">
-        <h3>Alertas de stock</h3>
-        <ul class="alert-list">
-          {% for product in low_stock %}
-            <li class="alert {{ 'danger' if product.stock == 0 else 'warning' }}">
-              {{ product.name }} - {{ product.stock }} en inventario
-            </li>
-          {% else %}
-            <li>No hay alertas activas.</li>
-          {% endfor %}
-        </ul>
-      </article>
-    </div>
-
-    <article class="panel table-panel reveal">
-      <div class="panel-head">
-        <h3>Inventario completo</h3>
-        <p>Orden alfabetico por categoria y producto.</p>
-      </div>
-
+    <article class="panel table-panel">
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Categoria</th>
+              <th>Categoría</th>
               <th>Producto</th>
               <th>Stock</th>
               <th>Vendidos</th>
               <th>Estado</th>
-              <th>Acciones</th>
+              <th class="th-actions">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {% for product in products %}
               <tr>
                 <td>{{ product.category.name }}</td>
-                <td>{{ product.name }}</td>
+                <td class="td-product">{{ product.name }}</td>
                 <td>{{ product.stock }}</td>
                 <td>{{ product.sold_count }}</td>
-                <td><span class="badge badge-{{ product.stock_status }}">{{ product.stock_status }}</span></td>
-                <td class="actions">
-                  <a href="{{ url_for('admin.product_edit', product_id=product.id) }}">Editar</a>
-                  <form method="post" action="{{ url_for('admin.product_delete', product_id=product.id) }}" onsubmit="return confirm('Eliminar producto?');">
-                    <button type="submit">Eliminar</button>
+                <td>
+                  {% if product.stock == 0 %}
+                    <span class="badge badge-danger">¡Agotado!</span>
+                  {% elif product.stock <= 2 %}
+                    <span class="badge badge-danger">¡Alerta! Quedan {{ product.stock }}</span>
+                  {% elif product.stock_status == 'bajo' %}
+                    <span class="badge badge-warning">Bajo: {{ product.stock }} unid.</span>
+                  {% else %}
+                    <span class="badge badge-ok">En stock</span>
+                  {% endif %}
+                </td>
+                <td class="td-actions">
+                  <a class="btn-edit" href="{{ url_for('admin.product_edit', product_id=product.id) }}">Editar</a>
+                  <form method="post" action="{{ url_for('admin.product_delete', product_id=product.id) }}" style="display:inline" onsubmit="return confirm('¿Eliminar «{{ product.name }}» del inventario?');">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button class="btn-del" type="submit">Eliminar</button>
                   </form>
                 </td>
               </tr>
+            {% else %}
+              <tr><td colspan="6" class="table-empty">No hay productos que coincidan con la búsqueda. 🔍</td></tr>
             {% endfor %}
           </tbody>
         </table>
       </div>
     </article>
-  </section>
-</main>
-{% endblock %}
+  </div>
+</div>
 
+<script src="{{ url_for('static', filename='js/admin/admin-widgets.js') }}"></script>
+</body>
+</html>
