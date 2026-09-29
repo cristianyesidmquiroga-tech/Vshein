@@ -79,7 +79,7 @@
         <h2 class="reveal">Vístete de ti misma</h2>
         <p class="reveal" style="color:var(--ink-soft);margin-top:.6rem">Toca una categoría y descubre tus favoritas 👇</p>
       </header>
-      <div class="submenu" data-submenu>
+      <div class="submenu reveal" data-submenu>
         <button type="button" data-sub="todos" class="active">Todo</button>
         {% for category in ropa_categories %}
           <button type="button" data-sub="{{ category.slug }}">{{ category.name }}</button>

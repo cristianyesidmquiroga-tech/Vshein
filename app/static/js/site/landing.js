@@ -30,18 +30,15 @@
     });
   }
 
-  /* ================= 2. Animación de aparición ================= */
+  /* ================= 2. Animación de aparición (entra y sale con el scroll) ================= */
   var revealObserver = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        revealObserver.unobserve(entry.target);
-      }
+      entry.target.classList.toggle("visible", entry.isIntersecting);
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
 
   function observeReveals() {
-    $all(".reveal:not(.visible)").forEach(function (el, i) {
+    $all(".reveal").forEach(function (el, i) {
       if (!el.style.getPropertyValue("--d")) el.style.setProperty("--d", (i % 4) * 0.09 + "s");
       revealObserver.observe(el);
     });
