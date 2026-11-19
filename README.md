@@ -1,39 +1,47 @@
 # Vshein
 
-Base Flask para una tienda de ropa femenina con:
+<details>
+<summary><b>Read this in English</b></summary>
 
-- Landing page de una sola vista, renderizada desde la base de datos real
-- Seccion de productos con imagenes y videos
-- Seccion "Quienes somos"
-- Seccion de contacto
-- Footer con politicas, terminos y condiciones
-- Panel de administracion con login y roles, en una ruta no obvia (ver `ADMIN_PATH_PREFIX`)
-- Inventario con filtros, CRUD y alertas de stock
+Flask base for a women's clothing store:
+
+- One-page landing rendered from the real database, with product images and videos, an "About us" section, contact and a footer with policies and terms.
+- Admin panel with login and two roles (`admin` and `empleado`) under a non-obvious path (`ADMIN_PATH_PREFIX`).
+- Inventory with filters, product CRUD, stock movements and low-stock alerts.
+
+Quick start: copy `.env.example` to `.env` and fill `SECRET_KEY` and `DATABASE_URL`, then run `pip install -r requirements.txt`, `python -m flask db upgrade`, `python -m flask seed-demo-data` (only with `SEED_DEMO_DATA=true`) and `python run.py`. Tests: `pip install -r requirements-dev.txt` and `pytest` (19 tests).
+
+</details>
+
+Base Flask para una tienda de ropa femenina:
+
+- Landing de una sola vista, armada con los datos reales de la base: productos con imágenes y videos, "Quiénes somos", contacto y footer con políticas y términos.
+- Panel administrativo con login y dos roles (`admin` y `empleado`) en una ruta no obvia (`ADMIN_PATH_PREFIX`).
+- Inventario con filtros, CRUD de productos, movimientos de stock y alertas de stock bajo.
 
 ## Estructura
 
-- `app/`: aplicacion Flask, modelos, rutas, templates y assets
-- `config/`: configuracion de la app (unico punto de verdad, lee todo de variables de entorno)
-- `data/`: base de datos SQLite local de desarrollo (nunca se versiona)
-- `migrations/`: historial de migraciones de esquema (Alembic via Flask-Migrate)
+- `app/`: aplicación Flask, modelos, rutas (`main`, `auth`, `admin`), plantillas y archivos estáticos.
+- `config/`: configuración; todo sale de variables de entorno.
+- `data/`: base SQLite local de desarrollo (no se versiona).
+- `migrations/`: migraciones de esquema con Flask-Migrate.
+- `tests/`: 19 pruebas con pytest.
 
-## Configuracion (.env)
+## Configuración
 
-Este proyecto no versiona `.env.example` a proposito. Crea un archivo `.env` en la raiz
-(nunca se commitea, ya esta en `.gitignore`) con estas variables:
+Copiar `.env.example` a `.env` y completar los valores. Cada variable está explicada en ese archivo.
 
-| Variable            | Obligatoria | Descripcion                                                              |
-|----------------------|:-----------:|---------------------------------------------------------------------------|
-| `SECRET_KEY`          | si          | Clave aleatoria larga (`python -c "import secrets; print(secrets.token_hex(32))"`) |
-| `DATABASE_URL`        | si          | Cadena de conexion. Dev: `sqlite:///data/dev.sqlite3`. Produccion futura: Postgres (`postgresql+psycopg2://usuario:clave@host:5432/vshein`) |
-| `ADMIN_PATH_PREFIX`   | no (default `equipo-sv`) | Prefijo no obvio para las rutas del panel admin/login. Cambialo si crees que quedo expuesto. |
-| `SEED_DEMO_DATA`      | no (default `false`)     | `true` solo en desarrollo local, para poder correr `flask seed-demo-data` |
-| `FLASK_ENV`           | no (default `production`) | `development` en tu maquina local (afecta cookies seguras) |
+| Variable | Obligatoria | Para qué sirve |
+|---|:-:|---|
+| `SECRET_KEY` | sí | Firma la cookie de sesión. |
+| `DATABASE_URL` | sí | Conexión a la base. En local: `sqlite:///data/dev.sqlite3`. |
+| `ADMIN_PATH_PREFIX` | no (`equipo-sv`) | Prefijo de las rutas del login y del panel. |
+| `SEED_DEMO_DATA` | no (`false`) | `true` solo en local, para poder correr `flask seed-demo-data`. |
+| `FLASK_ENV` | no (`production`) | `development` en local (cookies sin `Secure`). |
 
-Si falta `SECRET_KEY` o `DATABASE_URL` la app falla al arrancar con un error explicito
-en vez de usar un valor por defecto inseguro.
+Si falta `SECRET_KEY` o `DATABASE_URL` la app no arranca, en vez de usar un valor inseguro.
 
-## Primer arranque en desarrollo
+## Primer arranque
 
 ```
 pip install -r requirements.txt
@@ -42,13 +50,18 @@ python -m flask seed-demo-data
 python run.py
 ```
 
+## Pruebas
+
+```
+pip install -r requirements-dev.txt
+pytest
+```
+
 ## Cambios de esquema
 
-La base de datos **nunca se borra ni se recrea** despues del arranque inicial. Todo cambio
-a los modelos se hace con una migracion nueva:
+La base no se borra ni se recrea. Cada cambio de modelos va en una migración nueva:
 
 ```
 python -m flask db migrate -m "descripcion del cambio"
 python -m flask db upgrade
 ```
-
