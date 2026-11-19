@@ -1,5 +1,7 @@
 # Vshein
 
+[![CI](https://github.com/cristianyesidmquiroga-tech/Vshein/actions/workflows/pruebas.yml/badge.svg?branch=main)](https://github.com/cristianyesidmquiroga-tech/Vshein/actions/workflows/pruebas.yml)
+
 <details>
 <summary><b>Read this in English</b></summary>
 
