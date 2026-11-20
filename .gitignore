@@ -15,4 +15,5 @@ app/static/uploads/*
 
 # Documentos internos (auditoria, planes): contienen datos del negocio
 # y detalle de vulnerabilidades. Este repo es publico.
-docs/
+docs/*
+!docs/capturas/

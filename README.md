@@ -15,6 +15,8 @@ Quick start: copy `.env.example` to `.env` and fill `SECRET_KEY` and `DATABASE_U
 
 </details>
 
+![Landing de la tienda con su colección](docs/capturas/inicio.webp)
+
 Base Flask para una tienda de ropa femenina:
 
 - Landing de una sola vista, armada con los datos reales de la base: productos con imágenes y videos, "Quiénes somos", contacto y footer con políticas y términos.
